@@ -5,7 +5,7 @@ Plain-language documentation for the multi-city street-lighting and crime maps
 below is open data pulled from public sources. The comparison-city maps are
 drafts for review, not published work.
 
-Last built: May 2026.
+Last built: May 2026. Chicago rebuilt Sept. 29, 2026 (see the Chicago notes in sections 2, 4 and 6).
 
 ---
 
@@ -18,8 +18,9 @@ Every city has two companion maps:
 - **Satellite darkness × crime** — calibrated nighttime-lights satellite radiance
   crossed with violent crime.
 
-Both put the city on a grid of hexagons (about a few blocks each) and, for every
-hexagon, count the events that fall inside it. The maps then compare hexagons by
+Both put the city on a grid (hexagons of about a few blocks each; Chicago's
+satellite map uses 500-meter squares instead, see section 6) and, for every
+cell, count the events that fall inside it. The maps then compare hexagons by
 percentile, so "high crime" or "dark" always means high or dark *relative to the
 rest of that same city*. You should not read the absolute numbers across cities
 as equivalent — only the within-city rankings.
@@ -40,6 +41,27 @@ satellite maps.
 **Indoor vs outdoor.** Where the data carries an indoor/outdoor field, incidents
 flagged as indoors are excluded so the map reflects street-level events:
 **New York City, Chicago, Los Angeles and Baltimore** all exclude indoor crime.
+**Chicago uses an explicit allow-list** rather than a keyword screen: only the
+Chicago Police Department (CPD) `location_description` values for public
+outdoor places count. The list is modeled on the New York City cookbook's
+outdoor premises (streets, highways, bridges, tunnels, open lots, parks,
+playgrounds, cemeteries, parking lots, bus stops and terminals, ferry
+terminals, taxis, marinas and piers, mobile food, outdoor mailboxes and
+construction sites). Every code CPD used for these crime types in 2023-2025,
+with its count and the decision, is in `chicago/location-codes.csv`. In short:
+streets, sidewalks, alleys, highways, bridges, parks, forest preserves, the
+lakefront, vacant lots, Chicago Housing Authority grounds and lots, bus stops,
+construction sites, cemeteries, taxis, ride-share vehicles, private and
+commercial vehicles and the airport curbside are in. Homes (including porches,
+yards and driveways), businesses, gas stations, schools, hospitals, police
+stations, and Chicago Transit Authority (CTA) trains, buses, stations and
+platforms are out. CPD's single code for parking lots and garages
+(`PARKING LOT / GARAGE (NON RESIDENTIAL)`, plus the CTA and airport lot codes)
+is behind a switch in `chicago/build.py` (`CHI_GARAGES`, on by default),
+because CPD and NYPD both lump open lots with enclosed garages. CPD homicide
+records use an older set of location codes (AUTO, YARD, PORCH, DRIVEWAY,
+GANGWAY, PARKING LOT and so on); each is paired with its current counterpart
+so homicides get the same treatment.
 **Philadelphia is the exception** — its police file has no indoor/outdoor field,
 so its crime layer includes indoor incidents and is therefore not directly
 comparable on that axis.
@@ -50,7 +72,7 @@ window — the numbers the maps actually use.
 | City | Source / portal | Dataset | Categories kept | Window | Night incidents |
 |------|-----------------|---------|-----------------|--------|-----------------|
 | New York City | NYPD via NYC Open Data | NYPD complaint data | Felony assault, misdemeanor assault, robbery, murder | Jan 2024 – Mar 2026 | 45,368 |
-| Chicago | Chicago Police via data.cityofchicago.org | `ijzp-q8t2` | Assault, battery, robbery, homicide | Jan 2023 – Apr 2026 | 38,544 |
+| Chicago | Chicago Police via data.cityofchicago.org | `ijzp-q8t2` | Assault, battery, robbery, homicide (public outdoor places only) | Jan 2023 – Dec 2025 | 33,486 |
 | Philadelphia | Philadelphia Police via phl.carto.com | `incidents_part1_part2` | Aggravated assault (firearm and non-firearm), other assaults, robbery (firearm and non-firearm), criminal homicide | Jan 2023 – Apr 2026 | 64,838 |
 | Baltimore | Baltimore Police via Open Baltimore (ArcGIS) | `Part1_Crime_Beta` | Assault, robbery, shooting, homicide (outdoor only) | Jan 2023 – Dec 2024 | 12,832 |
 | Los Angeles | LAPD via data.lacity.org | `2nrs-mtv8` (Crime Data 2020 to present) | Assault, battery, robbery, homicide (sex crimes excluded) | Calendar 2023 | 10,853 |
@@ -72,7 +94,7 @@ system.
 | City | Dataset | Complaint types kept | Complaints |
 |------|---------|----------------------|------------|
 | New York City | NYC 311 (Street Light Condition) | Street light out, multiple lights out, dim, missing lamp, damaged fixture | 50,856 |
-| Chicago | `v6vf-nfxy` | Street light out, alley light out, viaduct light out | 148,212 |
+| Chicago | `v6vf-nfxy` (Jan 2023 – Dec 2025) | Street light out, alley light out, viaduct light out | 134,798 |
 | Philadelphia | `public_cases_fc` | "Street Light Outage" service request | 33,561 |
 | Baltimore | `311_Customer_Service_Requests_2023` and `_2024` | Street light out, knocked-down or missing-pole reports | 31,496 |
 | Los Angeles | `4a4x-mna2` (MyLA311 2023) | Single- and multiple-streetlight issues | 32,258 |
@@ -91,7 +113,9 @@ streetlight complaints in each city's window.
   moonlight-corrected nighttime Day/Night Band radiance composite from the
   Visible Infrared Imaging Radiometer Suite (VIIRS), measured in nanowatts per
   square centimeter per steradian.
-- **Year used: 2023 for every city**, so all five are directly comparable.
+- **Year used: 2023 for New York City, Philadelphia, Baltimore and Los Angeles.**
+  **Chicago uses the average of 2023, 2024 and 2025**, matching its crime window
+  (see below).
 - **How it was obtained:** NASA's Common Metadata Repository (CMR) granule search
   located the tiles covering each city; the files were downloaded from the
   Land, Atmosphere Near real-time Capability for EOS (LAADS) Distributed Active
@@ -103,6 +127,35 @@ streetlight complaints in each city's window.
 > captures all upward light — signage, lit lots, headlights, stadiums — not
 > streetlights alone. A bright hexagon is not necessarily well lit for a
 > pedestrian on a side street.
+
+### About Chicago's darkness layer specifically (rebuilt Sept. 29, 2026)
+
+Chicago follows Vital City's lighting-and-crime cookbook more closely than the
+other comparison cities:
+
+- **Grid:** 500 m x 500 m squares in UTM zone 16N (EPSG:26916), aligned to
+  round 500 m coordinates. Every square that intersects the City of Chicago
+  boundary (Chicago Data Portal `qqq8-j68g`) is kept: 2,650 squares, 615 of
+  them with no nighttime outdoor violent crime. Empty squares count in the
+  percentiles.
+- **Lighting per square:** the area-weighted mean radiance of the
+  15-arc-second VNP46A4 pixels that overlap the square (same field,
+  `AllAngle_Composite_Snow_Free`, same fill-value handling and scale factor as
+  the other cities). Computed separately for 2023, 2024 and 2025, then
+  averaged with equal weight. A square with no valid pixels in a year takes
+  the mean of its three nearest valid squares for that year; in this build no
+  square needed that fill.
+- **Percentiles** of lighting (0 = darkest) and nighttime crime are ranked over
+  all 2,650 squares.
+- **Window:** crime runs Jan. 1, 2023 through Dec. 31, 2025, the same three
+  calendar years as the lighting. The 311 layer and chronic spots use the same
+  window.
+- **Still different from the cookbook:** annual composites (VNP46A4) rather
+  than 36 monthly composites (VNP46A3), and night defined as 8 PM to 6 AM
+  rather than by civil twilight.
+- **Labels:** each square is labeled with the community area holding most of
+  its nighttime crimes, or, with none, the community area its center falls in
+  (community area boundaries: Chicago Data Portal `igwz-8jzy`).
 
 ### About New York City's darkness layer specifically
 
@@ -142,7 +195,11 @@ Used only for labels in tooltips and the flagged-locations list.
 - **Basemap:** CARTO dark base tiles (built on OpenStreetMap).
 - **Address search:** Photon geocoder (komoot, built on OpenStreetMap).
 - **Hexagon grid:** Uber's H3 system — resolution 9 (~a block) for New York City,
-  resolution 8 (~a few blocks) for the other four.
+  resolution 8 (~a few blocks) for the other four. Chicago's 311 map still uses
+  H3 resolution 8.
+- **Square grid (Chicago satellite map only):** 500-meter squares in UTM zone
+  16N, built by `common_grid.py`. The file keeps the name `hexes-sat.geojson`
+  so the pages read it unchanged.
 
 ---
 
@@ -170,5 +227,6 @@ Used only for labels in tooltips and the flagged-locations list.
 Every map is built by a small script kept in this repository:
 `<city>/build.py` fetches the 311 and crime data and bins it; `common_sat_bm.py`
 adds the Black Marble darkness layer; `common.py` holds the shared binning and
-percentile logic. Re-running a city's scripts rebuilds its data files from the
+percentile logic; `common_grid.py` builds Chicago's square grid.
+`chicago/report_sat.py` prints Chicago's headline numbers from the built file. Re-running a city's scripts rebuilds its data files from the
 live open-data sources.

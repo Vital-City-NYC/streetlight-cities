@@ -1,0 +1,139 @@
+location_description,decision,night_2023_2025,all_hours_2023_2025,note
+STREET,IN,18987,42603,
+SIDEWALK,IN,8396,22375,NYPD files sidewalks under STREET
+ALLEY,IN,2279,5762,NYPD files alleys under STREET
+VEHICLE NON-COMMERCIAL,IN,891,1794,"attacks on people inside private cars; NYPD has no vehicle code, so the same incident in New York is most likely filed as STREET"
+PARK PROPERTY,IN,654,2275,
+CTA BUS STOP,IN,227,659,
+CHA PARKING LOT / GROUNDS,IN,189,558,
+VACANT LOT / LAND,IN,110,338,NYPD: OPEN AREAS (OPEN LOTS)
+"VEHICLE - OTHER RIDE SHARE SERVICE (LYFT, UBER, ETC.)",IN,79,131,NYPD analog: TAXI codes
+VEHICLE - COMMERCIAL,IN,50,116,same question for work vans
+LAKEFRONT / WATERFRONT / RIVERBANK,IN,49,113,NYPD analog: MARINA/PIER
+AIRPORT EXTERIOR - NON-SECURE AREA,IN,33,66,"curbside roads at O'Hare and Midway: outdoor and public, but no New York analog"
+PARKING LOT,IN,30,66,"older code (homicides only); a lot, not a garage"
+HIGHWAY / EXPRESSWAY,IN,26,55,
+AUTO,IN,25,41,older code for the same thing (homicides only)
+TAXICAB,IN,18,30,
+BRIDGE,IN,17,30,
+VACANT LOT,IN,7,18,older code (homicides only)
+CONSTRUCTION SITE,IN,6,33,
+FOREST PRESERVE,IN,6,16,
+CHA GROUNDS,IN,5,7,older code (homicides only)
+CHA PARKING LOT,IN,4,7,older code (homicides only)
+CEMETARY,IN,2,15,
+LAKE,IN,2,4,older code (homicides only)
+VEHICLE - DELIVERY TRUCK,IN,2,11,same question for delivery trucks
+BEACH,IN,0,1,
+RIVER BANK,IN,0,1,
+PARKING LOT / GARAGE (NON RESIDENTIAL),GARAGE,1484,4694,"CPD lumps open lots and enclosed garages; NYPD lumps them too, and we have not confirmed whether New York counted them"
+CTA PARKING LOT / GARAGE / OTHER PROPERTY,GARAGE,39,123,"same lot/garage lumping, plus unspecified CTA property"
+AIRPORT PARKING LOT,GARAGE,22,65,"O'Hare's main parking is a multi-level garage; NYPD does not police the airports, so no New York analog"
+APARTMENT,OUT,27254,61981,
+RESIDENCE,OUT,12310,29542,
+RESTAURANT,OUT,1766,5145,
+GAS STATION,OUT,1715,3525,
+BAR OR TAVERN,OUT,1630,1877,
+CTA TRAIN,OUT,1030,2222,
+RESIDENCE - PORCH / HALLWAY,OUT,787,2197,"one code for open front porches and interior hallways; New York analog is residence, excluded"
+HOSPITAL BUILDING / GROUNDS,OUT,755,2123,"mostly attacks inside hospitals (623 of 755 are batteries, often in emergency rooms); NYPD HOSPITAL is excluded"
+HOTEL / MOTEL,OUT,716,1284,
+SMALL RETAIL STORE,OUT,691,4327,
+RESIDENCE - YARD (FRONT / BACK),OUT,690,2062,"outdoors but private; NYPD has no yard code, so New York files these under residence types, which it excludes"
+OTHER (SPECIFY),OUT,585,2218,
+CTA PLATFORM,OUT,513,1142,"many elevated platforms are open-air, but New York excludes all subway premises, elevated platforms included"
+CTA BUS,OUT,420,1873,
+CONVENIENCE STORE,OUT,417,1490,
+COMMERCIAL / BUSINESS OFFICE,OUT,380,2049,
+CHA APARTMENT,OUT,360,1069,
+GROCERY FOOD STORE,OUT,336,2090,
+NURSING / RETIREMENT HOME,OUT,316,1438,
+CTA STATION,OUT,305,775,
+TAVERN / LIQUOR STORE,OUT,276,608,
+DEPARTMENT STORE,OUT,166,1329,
+RESIDENCE - GARAGE,OUT,164,416,
+POLICE FACILITY / VEHICLE PARKING LOT,OUT,159,370,"one code for the station building and its lot; 125 of 159 are batteries, which fits scuffles inside stations and lockups"
+DRUG STORE,OUT,148,689,
+SCHOOL - PUBLIC GROUNDS,OUT,137,3305,"outdoor schoolyards, but New York files school incidents under PUBLIC SCHOOL, which the cookbook excludes; mostly daytime (137 of 3,305 at night)"
+SPORTS ARENA / STADIUM,OUT,112,192,
+CHA HALLWAY / STAIRWELL / ELEVATOR,OUT,108,353,
+SCHOOL - PUBLIC BUILDING,OUT,82,3205,
+DRIVEWAY - RESIDENTIAL,OUT,75,218,"outdoors but private; New York analog is residence, excluded"
+GOVERNMENT BUILDING / PROPERTY,OUT,75,455,mostly buildings
+BANK,OUT,63,474,
+AIRPORT TERMINAL LOWER LEVEL - NON-SECURE AREA,OUT,54,125,
+CHURCH / SYNAGOGUE / PLACE OF WORSHIP,OUT,52,325,
+MOVIE HOUSE / THEATER,OUT,50,70,
+ATHLETIC CLUB,OUT,49,165,
+HOUSE,OUT,39,85,
+WAREHOUSE,OUT,37,147,
+YARD,OUT,29,48,older code for the same thing (homicides only)
+CLEANING STORE,OUT,27,114,
+AIRPORT TERMINAL UPPER LEVEL - SECURE AREA,OUT,26,136,
+FACTORY / MANUFACTURING BUILDING,OUT,24,129,
+AIRPORT TERMINAL UPPER LEVEL - NON-SECURE AREA,OUT,24,71,
+BOAT / WATERCRAFT,OUT,24,39,"inside a vessel; cookbook counts marinas, piers and ferry terminals, not boats"
+AIRPORT BUILDING NON-TERMINAL - NON-SECURE AREA,OUT,23,59,
+OTHER COMMERCIAL TRANSPORTATION,OUT,21,73,"charter buses, limos; buses are out"
+AIRCRAFT,OUT,20,54,
+ABANDONED BUILDING,OUT,20,49,
+CASINO/GAMBLING ESTABLISHMENT,OUT,20,28,
+SCHOOL - PRIVATE GROUNDS,OUT,18,514,same as public grounds
+MEDICAL / DENTAL OFFICE,OUT,18,347,
+SCHOOL - PRIVATE BUILDING,OUT,18,268,
+OTHER RAILROAD PROPERTY / TRAIN DEPOT,OUT,18,44,rail stations and yards; New York excludes transit facilities
+ATM (AUTOMATIC TELLER MACHINE),OUT,18,34,NYPD has an ATM code and the cookbook leaves it out
+CURRENCY EXCHANGE,OUT,17,82,
+PORCH,OUT,16,30,older code for porches (homicides only)
+BARBERSHOP,OUT,14,126,
+BOWLING ALLEY,OUT,14,22,
+COLLEGE / UNIVERSITY - GROUNDS,OUT,13,59,same logic; NYPD COLLEGE/UNIVERSITY is excluded
+CAR WASH,OUT,13,125,
+APPLIANCE STORE,OUT,13,90,
+AIRPORT TERMINAL LOWER LEVEL - SECURE AREA,OUT,11,33,
+JAIL / LOCK-UP FACILITY,OUT,10,40,
+AIRPORT EXTERIOR - SECURE AREA,OUT,10,29,
+LIBRARY,OUT,9,339,
+DAY CARE CENTER,OUT,8,159,
+FIRE STATION,OUT,7,15,
+AUTO / BOAT / RV DEALERSHIP,OUT,6,97,
+FEDERAL BUILDING,OUT,6,74,
+AIRPORT BUILDING NON-TERMINAL - SECURE AREA,OUT,6,23,
+COIN OPERATED MACHINE,OUT,6,18,
+HALLWAY,OUT,6,13,
+DRIVEWAY,OUT,5,9,older code for the same thing (homicides only)
+POOL ROOM,OUT,5,10,
+GAS STATION DRIVE/PROP.,OUT,5,8,older gas-station code; GAS STATION is out
+STAIRWELL,OUT,5,6,
+"CTA ""L"" PLATFORM",OUT,4,5,older code for the same thing (homicides only)
+COLLEGE / UNIVERSITY - RESIDENCE HALL,OUT,4,10,
+GARAGE,OUT,4,8,
+TAVERN,OUT,4,5,
+GANGWAY,OUT,3,4,"Chicago word for the open passage between houses; private, like a yard (homicides only)"
+(blank),OUT,3,10,
+HOSPITAL,OUT,3,7,
+AIRPORT TRANSPORTATION SYSTEM (ATS),OUT,3,6,
+RAILROAD PROPERTY,OUT,3,4,same (homicides only)
+AIRPORT VENDING ESTABLISHMENT,OUT,2,5,
+AIRPORT TERMINAL MEZZANINE - NON-SECURE AREA,OUT,2,4,
+OFFICE,OUT,2,4,
+CTA PROPERTY,OUT,2,4,
+CHA STAIRWELL,OUT,2,2,
+ANIMAL HOSPITAL,OUT,1,10,
+RETAIL STORE,OUT,1,8,
+VEHICLE - COMMERCIAL: TROLLEY BUS,OUT,1,8,
+KENNEL,OUT,1,4,
+CHA HALLWAY,OUT,1,4,
+HOTEL,OUT,1,3,
+"CTA ""L"" TRAIN",OUT,1,3,
+CTA TRACKS - RIGHT OF WAY,OUT,1,3,transit right-of-way
+BASEMENT,OUT,1,3,
+BARBER SHOP/BEAUTY SALON,OUT,1,3,
+CHA LOBBY,OUT,1,1,
+VEHICLE - COMMERCIAL: ENTERTAINMENT / PARTY BUS,OUT,1,1,
+CTA SUBWAY STATION,OUT,1,1,
+SCHOOL YARD,OUT,0,2,same as public grounds (none at night)
+PAWN SHOP,OUT,0,36,
+VESTIBULE,OUT,0,2,
+ROOF,OUT,0,1,
+LIQUOR STORE,OUT,0,1,

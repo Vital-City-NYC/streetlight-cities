@@ -252,7 +252,7 @@ const C = window.CITY, $ = id => document.getElementById(id);
 document.title = C.name + ": where darkness and crime overlap";
 $('kicker-rest').textContent = "Lighting: darkness and crime, mapped — " + C.name;
 $('cp-title').innerHTML = `${C.name}: where <em>darkness and crime</em> overlap`;
-$('credit').textContent = "Lighting from NASA's VIIRS Black Marble nighttime-radiance satellite composite, crossed with police-reported violent crime on a hex grid.";
+$('credit').textContent = "Lighting from NASA's VIIRS Black Marble nighttime-radiance satellite composite, crossed with police-reported violent crime on " + (C.gridName || "a hex grid") + ".";
 if (C.staleNote) { $('stale').textContent = C.staleNote; $('stale').style.display = "block"; }
 
 /* ---- map ---- */
@@ -413,10 +413,10 @@ function fmtMonth(s){ if(!s)return''; const [y,m]=s.split('-').map(Number); retu
 function fillInfo(cw){
   $('im-intro').textContent=`This tool identifies areas of ${C.name} where violent crime coincides with inadequate street lighting, to help target on-the-ground review and investment.`;
   $('im-time').textContent=`Crime covers ${cw}. The lighting layer is the ${META.lighting.label}.`;
-  $('im-method').innerHTML=`${C.name} is divided into a hex grid. For each cell we compute the <b>nighttime</b> violent-crime percentile (police incident counts from 8 PM to 6 AM) and the nighttime-lighting percentile (calibrated satellite radiance, nanowatts per cm²/sr). The sliders filter to cells where lighting is at or below a chosen percentile <em>and</em> crime is at or above another. Daytime incidents are excluded — darkness is a nighttime condition. ${C.crimeCats} are included; ${C.geocodeCaveat}`;
+  $('im-method').innerHTML=`${C.name} is divided into ${C.gridName || "a hex grid"}. For each cell we compute the <b>nighttime</b> violent-crime percentile (police incident counts from 8 PM to 6 AM) and the nighttime-lighting percentile (calibrated satellite radiance, nanowatts per cm²/sr). The sliders filter to cells where lighting is at or below a chosen percentile <em>and</em> crime is at or above another. Daytime incidents are excluded — darkness is a nighttime condition. ${C.crimeCats} are included; ${C.geocodeCaveat}${C.outdoorDef ? " " + C.outdoorDef : ""}`;
   $('im-311').textContent='The 311 layer shows the locations with the most streetlight complaints in the crime window — chronic dark or broken-light spots, not every call.';
   $('im-sources').innerHTML=`<li>Police violent-crime incidents (assault, robbery, homicide and related)</li><li>NASA Black Marble VNP46A4 annual nighttime radiance (VIIRS), via LAADS DAAC</li><li>311 / service-request streetlight complaints</li>`;
-  $('im-limits').textContent='Satellite radiance is sampled on a ~500 m grid and a hex averages several blocks, so it can mask block-by-block variation and captures all upward light (signage, lots), not streetlights alone. A flagged cell is a candidate for review, not a verdict — go look.';
+  $('im-limits').textContent='Satellite radiance is sampled on a ~500 m grid and ' + (C.gridLimit || 'a hex averages several blocks') + ', so it can mask block-by-block variation and captures all upward light (signage, lots), not streetlights alone. A flagged cell is a candidate for review, not a verdict — go look.';
 }
 
 /* ---- geocoder (Photon) ---- */

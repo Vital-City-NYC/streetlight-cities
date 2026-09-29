@@ -20,7 +20,38 @@ Plus three combined pages at the root:
 - `atlas.html`: New York City's real, untouched maps as the main view, with the four comparison cities as live mini maps along the bottom. `?type=311` switches to the 311 view.
 - `index.html`: a plain hub linking every per-city map.
 
-Live: https://vitalcity-nyc.github.io/streetlight-cities/
+Live: https://vital-city-nyc.github.io/streetlight-cities/
+
+The repo moved from the `vitalcity-nyc` account to the `Vital-City-NYC` organization on Sept. 29, 2026 (https://github.com/Vital-City-NYC/streetlight-cities). The old address, vitalcity-nyc.github.io/streetlight-cities/, no longer works; GitHub does not redirect Pages sites. The organization's earlier code-only mirror was renamed `streetlight-cities-old-mirror` to make room and can be deleted.
+
+## Sept. 29, 2026: Chicago satellite map rebuilt to follow the cookbook
+
+`chicago/satellite.html` now follows Vital City's lighting-and-crime cookbook (the method behind the New York City satellite map) for its grid, time window and outdoor definition. The other four cities are unchanged.
+
+What changed, and why:
+
+- **500-meter squares instead of H3 hexes**, to match the cookbook's grid. Squares are built in UTM zone 16N (EPSG:26916), aligned to round 500 m coordinates, and every square that touches the city boundary is kept, including the 615 of 2,650 with no nighttime crime. The old build dropped empty cells, so they never counted in the percentiles. New module: `common_grid.py`. The H3 path in `common.py` is untouched.
+- **Lighting per square is an area-weighted mean** of the satellite pixels that overlap it, instead of a 3x3 pixel block (about 1.4 km across) around a hex's center. It averages the 2023, 2024 and 2025 annual composites with equal weight and fills any square with no valid pixels in a year from its three nearest valid squares, as the cookbook does. No square needed the fill. New function: `common_sat_bm.build_squares_lighting`.
+- **A fixed window, Jan. 1, 2023 through Dec. 31, 2025**, so crime and lighting cover the same three calendar years. Before, the window's end floated to the start of the current month. The 311 map and chronic spots use the same window.
+- **An outdoor allow-list replaces the indoor keyword screen.** The old screen dropped outdoor places the cookbook counts (the ride-share and police-lot codes contain the word VEHICLE) and kept places it doesn't (CTA trains and stations, gas stations, OTHER (SPECIFY)). `chicago/location-codes.csv` lists every CPD location code for these crime types in the window, with counts and the decision. Parking lots and garages share one CPD code, so they sit behind a switch (`CHI_GARAGES=0` turns them off; on by default).
+- **Kept as before, on purpose:** annual composites (VNP46A4) rather than the cookbook's 36 monthly composites (VNP46A3), and night as 8 PM to 6 AM rather than civil twilight. Battery stays in, as the counterpart of New York's misdemeanor assault.
+- **Page wording:** `template-sat.html` and `all-cities-satellite.html` now read the grid wording (`gridName`, `gridLimit`) and an optional outdoor definition (`outdoorDef`) from each city's config, falling back to the old hex wording. `template.html` reads `outdoorDef` too. Only Chicago's copies were regenerated; the other cities' `index.html` and `satellite.html` are the older copies and render the same text as before.
+
+Headline numbers, from `python3 chicago/report_sat.py` (garages on; garages off in brackets):
+
+- 2,650 squares; 615 [637] with no nighttime outdoor violent crime.
+- 33,486 [31,951] nighttime outdoor violent incidents: 16,705 [15,938] battery, 9,148 [8,724] robbery, 7,034 [6,690] assault, 599 [599] homicide.
+- At the default sliders (lighting at or below the 50th percentile, crime at or above the 80th), 126 [132] squares are flagged, holding 12.3% [12.9%] of nighttime outdoor violent crime. The old hex map flagged 34 hexes holding 9.5%.
+- The top 20% of squares hold 64.7% [65.1%] of the crime. The old hex map's top 20% of hexes held 59.5%; New York City's figure is about 79%.
+
+Community areas with the most flagged squares: Austin and South Shore (12 each), New City (11), Greater Grand Crossing (9), Englewood, Roseland and South Chicago (8 each), Auburn Gresham (7), Chatham (6) and West Englewood (5). The old hex map's list had the same names, except that Woodlawn (2 flagged squares now) drops out of the top ten.
+
+Open questions:
+
+- **Lakefront squares are partly water.** Their lighting average includes dark lake pixels. None of the 238 squares that are mostly outside the city line are flagged, but three flagged squares in Rogers Park, Uptown and Hyde Park are 66% to 90% inside it, so the lake may be pulling their lighting down. One fix is to average only the part of each square inside the city. We don't know what the New York City build did at the shoreline.
+- **Parking lots and garages.** We still don't know whether the New York City analysis counted NYPD's parking lot/garage codes. The switch barely moves Chicago's results (126 flagged squares with them, 132 without).
+- **The 311 map's crime layer changed too.** `chicago/build.py` feeds both Chicago maps, so `chicago/index.html` now uses the same outdoor list and window.
+- **New York City's 79%.** Chicago's top 20% of squares hold about 65% of the crime. The remaining gap may be real (crime more spread out in Chicago) or may come from the two differences we kept (annual composites, 8 PM to 6 AM).
 
 ## Where the research is
 
@@ -56,11 +87,12 @@ In every city, dark and high-crime hexes are rare. Violent crime concentrates in
 - `common_sat_bm.py` and `<city>/build_sat.py`: add the darkness layer to an existing `hexes.geojson`, writing `hexes-sat.geojson` with per-cell lighting and crime percentiles plus the quantile arrays the sliders read.
 - `template.html` and `template-sat.html`: the two page templates. Each city's `index.html` and `satellite.html` are copies, parameterized by `config.js` and `config-sat.js` (bounds, center, copy, caveats).
 - `label_neighborhoods.py`: pure-Python point-in-polygon labeling, reusable for any city whose feeds lack a neighborhood field.
+- `common_grid.py`: the 500-meter square grid used by Chicago's satellite map. `chicago/build.py` writes `squares.geojson` with it, and `chicago/build_sat.py` adds the lighting and writes `hexes-sat.geojson` (the name is kept so every page reads it unchanged).
 - `nyc/` has no `build.py`. Its hexes were pulled live from the existing `bivariate-lighting-crime` repo's `hexes.geojson` and only the satellite layer was added.
 
 ## Rebuilding
 
-Python 3 with `h3`, `numpy`, `h5py` and `Pillow`. The satellite builds need a free NASA Earthdata download token in `~/.edl_token` (create one at urs.earthdata.nasa.gov). Downloaded Black Marble tiles cache in `/tmp/blackmarble`, which the operating system clears, so the first run per city downloads again.
+Python 3 with `h3`, `numpy`, `h5py` and `Pillow`, plus `shapely` and `pyproj` for Chicago's square grid. The satellite builds need a free NASA Earthdata download token in `~/.edl_token` (create one at urs.earthdata.nasa.gov). Downloaded Black Marble tiles cache in `/tmp/blackmarble`, which the operating system clears, so the first run per city downloads again. Earthdata tokens expire after about 60 days; a 401 "invalid_token" from the download server means it's time for a new one.
 
 ```bash
 cd chicago && python3 build.py && python3 build_sat.py

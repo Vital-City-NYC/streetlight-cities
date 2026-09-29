@@ -2,6 +2,7 @@ window.CITY = {
   name: "Chicago",
   crimeSource: "violent crime Chicago police recorded",
   crimeCats: "Chicago Police reported incidents by primary type: assault, battery, robbery and homicide",
+  outdoorDef: "Only incidents in public outdoor places count: streets, sidewalks, alleys, highways, bridges, parks, forest preserves, the lakefront, vacant lots, parking lots and garages, Chicago Housing Authority grounds, bus stops, construction sites and cemeteries, plus attacks inside cars, taxis and ride-share vehicles. Homes (including porches, yards and driveways), businesses, gas stations, schools, hospitals, police stations and Chicago Transit Authority trains, buses, stations and platforms are excluded.",
   outageTypes: "street light out, alley light out and viaduct light out",
   geocodeCaveat: "Chicago publishes each crime at the block level (e.g. the 100 block of N State St), not the exact address, to protect privacy &mdash; so crime points are snapped to block midpoints.",
   denseArea: "the Loop",

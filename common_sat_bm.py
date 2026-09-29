@@ -185,3 +185,164 @@ def build(city_dir, *, year, lighting_label):
           f"radiance min/med/max = {min(rad):.1f}/{rad_sorted[len(rad)//2]:.1f}/{max(rad):.1f}",
           file=sys.stderr)
     return meta
+
+
+# --- square grid (cookbook method) --------------------------------------------
+# The functions above sample a 3x3 pixel block around each hex centroid (about
+# 1.4 km across). The square-grid path below instead takes, for every 500 m
+# square, the area-weighted mean of the 15-arc-second pixels that overlap it,
+# averages several annual composites with equal weight, and fills squares with
+# no valid radiance in a year from their three nearest valid neighbors.
+
+PIX_PER_DEG = 240          # VNP46A4: 2400 pixels across a 10-degree tile = 15 arc-seconds
+
+
+def _tile_origin(path):
+    base = os.path.basename(path)
+    hi = base.index(".h") + 1
+    h = int(base[hi+1:hi+3]); v = int(base[hi+4:hi+6])
+    return h * 10 - 180, 90 - v * 10
+
+
+def _pixel_weights(grid, keys, lon0, lat0, rows, cols):
+    """For each square, [(row, col, overlap area in m2), ...] over the pixels it touches.
+
+    Pixels are lon/lat boxes (pixel-is-area, tile upper-left corner at lon0, lat0);
+    each is projected to the grid's CRS and intersected with the square.
+    """
+    from shapely.geometry import Polygon
+    out = []
+    for key in keys:
+        sq = grid.box_utm(key)
+        ring = grid.ring_wgs84(key)
+        lons = [p[0] for p in ring]; lats = [p[1] for p in ring]
+        c0 = int(math.floor((min(lons) - lon0) * PIX_PER_DEG))
+        c1 = int(math.floor((max(lons) - lon0) * PIX_PER_DEG))
+        r0 = int(math.floor((lat0 - max(lats)) * PIX_PER_DEG))
+        r1 = int(math.floor((lat0 - min(lats)) * PIX_PER_DEG))
+        w = []
+        for r in range(max(0, r0 - 1), min(rows, r1 + 2)):
+            for c in range(max(0, c0 - 1), min(cols, c1 + 2)):
+                pl0, pl1 = lon0 + c / PIX_PER_DEG, lon0 + (c + 1) / PIX_PER_DEG
+                pa1, pa0 = lat0 - r / PIX_PER_DEG, lat0 - (r + 1) / PIX_PER_DEG
+                xs, ys = grid.fwd.transform([pl0, pl1, pl1, pl0], [pa0, pa0, pa1, pa1])
+                a = Polygon(zip(xs, ys)).intersection(sq).area
+                if a > 0:
+                    w.append((r, c, a))
+        out.append(w)
+    return out
+
+
+def build_squares_lighting(city_dir, *, years, lighting_label, boundary, epsg,
+                           out_dir=None):
+    """Add the lighting layer to squares.geojson and write hexes-sat.geojson.
+
+    hexes-sat.geojson keeps its name so the page templates, the tabbed
+    all-cities page and the atlas read it unchanged; for this city it holds squares.
+    """
+    import common_grid
+    out_dir = out_dir or city_dir
+    token = _token()
+    src = json.load(open(f"{out_dir}/squares.geojson"))
+    feats = src["features"]
+    grid = common_grid.SquareGrid(boundary, epsg=epsg, cell=src["meta"]["grid"]["cell_m"])
+    keys = [tuple(int(v) for v in f["properties"]["sq"].split("_")) for f in feats]
+    if keys != grid.keys:
+        raise SystemExit("squares.geojson does not match the grid rebuilt from the boundary")
+    lons = [c[0] for f in feats for c in f["geometry"]["coordinates"][0]]
+    lats = [c[1] for f in feats for c in f["geometry"]["coordinates"][0]]
+    bbox = (min(lons), min(lats), max(lons), max(lats))
+
+    # square centroids in projected meters, for the nearest-neighbor fill
+    cxy = np.array([((i + 0.5) * grid.cell, (j + 0.5) * grid.cell) for i, j in keys])
+
+    per_year, fill_report, weights, tile_used = {}, {}, None, None
+    for year in years:
+        urls = _granule_urls(bbox, year)
+        if len(urls) != 1:
+            raise SystemExit(f"expected one VNP46A4 tile over {bbox} for {year}, CMR returned {len(urls)}; "
+                             "the square-grid path handles single-tile cities only")
+        p = _download(urls[0], token)
+        arr, lon0, lat0 = _open_grid(p)
+        if (lon0, lat0) != _tile_origin(p):
+            raise SystemExit("tile origin mismatch")
+        tile = os.path.basename(p).split(".")[2]
+        if weights is None:
+            rows, cols = arr.shape
+            weights = _pixel_weights(grid, keys, lon0, lat0, rows, cols)
+            tile_used = tile
+        elif tile != tile_used:
+            raise SystemExit(f"tile changed between years ({tile_used} vs {tile})")
+
+        vals = np.full(len(keys), np.nan)
+        partial = 0
+        for k, w in enumerate(weights):
+            num = den = 0.0
+            for r, c, a in w:
+                v = arr[r, c]
+                if not np.isnan(v):
+                    num += v * a; den += a
+            if den > 0:
+                vals[k] = num / den
+                if den < sum(a for _, _, a in w) - 1e-6:
+                    partial += 1
+        missing = np.where(np.isnan(vals))[0]
+        valid = np.where(~np.isnan(vals))[0]
+        for k in missing:   # cookbook no-data fill: mean of the 3 nearest valid squares that year
+            d = np.hypot(*(cxy[valid] - cxy[k]).T)
+            vals[k] = vals[valid[np.argsort(d)[:3]]].mean()
+        per_year[year] = vals
+        fill_report[str(year)] = {"filled_squares": int(len(missing)),
+                                  "partly_fill_pixels": partial,
+                                  "granule": os.path.basename(p)}
+        print(f"  {year}: {len(missing)} squares filled from neighbors, "
+              f"{partial} averaged over partly missing pixels", file=sys.stderr)
+
+    light = np.mean([per_year[y] for y in years], axis=0)   # equal weight per year
+
+    def night_count(p_):
+        return p_.get("crime_night_n", 0)
+    rad_sorted = sorted(light.tolist())
+    crime_sorted = sorted(night_count(f["properties"]) for f in feats)
+
+    def pctl(sorted_vals, v):
+        return max(0, min(100, round(100 * bisect.bisect_right(sorted_vals, v) / len(sorted_vals))))
+
+    def quantiles(sorted_vals):
+        n = len(sorted_vals)
+        return [round(sorted_vals[min(n - 1, int(round(p / 100 * (n - 1))))], 1) for p in range(101)]
+
+    out = []
+    for f, v in zip(feats, light):
+        p = f["properties"]
+        nc = night_count(p)
+        out.append({"type": "Feature", "geometry": f["geometry"], "properties": {
+            "light_n": round(float(v), 1),
+            "light_pctl": pctl(rad_sorted, float(v)),
+            "crime_n": nc,                              # night-only violent crime count
+            "crime_pctl": pctl(crime_sorted, nc),
+            "nta": p.get("nta"), "boro": p.get("boro")}})
+
+    meta = dict(src["meta"])
+    meta["generated"] = datetime.date.today().isoformat()
+    meta["n_cells"] = len(out)
+    meta["crime"]["time_of_day"] = "night only (8 PM - 6 AM)"
+    meta["percentile_method"] = ("Each 500 m square gets a lighting percentile (satellite radiance, 0 = darkest) "
+                                 "and a NIGHTTIME violent-crime percentile (8 PM-6 AM, 0 = lowest), both "
+                                 "ranked over every square in the city including squares with no crime; the "
+                                 "sliders flag squares at or below a lighting percentile AND at or above a "
+                                 "crime percentile")
+    meta["lightingQ"] = quantiles(rad_sorted)
+    meta["crimeQ"] = quantiles(crime_sorted)
+    meta["lighting"] = {"label": lighting_label, "years": list(years), "tile": tile_used,
+                        "source": "NASA Black Marble VNP46A4 annual radiance (LAADS DAAC)",
+                        "field": SUBDATASET, "units": "nW/cm2/sr",
+                        "method": "area-weighted mean of the 15-arc-second pixels overlapping each square, "
+                                  "per year; squares with no valid pixels in a year take the mean of the "
+                                  "3 nearest valid squares; years averaged with equal weight",
+                        "fill": fill_report}
+    json.dump({"type": "FeatureCollection", "meta": meta, "features": out},
+              open(f"{out_dir}/hexes-sat.geojson", "w"))
+    print(f"  wrote hexes-sat.geojson — {len(out)} squares; radiance min/med/max = "
+          f"{rad_sorted[0]:.1f}/{rad_sorted[len(rad_sorted)//2]:.1f}/{rad_sorted[-1]:.1f}", file=sys.stderr)
+    return meta
