@@ -5,7 +5,7 @@ Plain-language documentation for the multi-city street-lighting and crime maps
 below is open data pulled from public sources. The comparison-city maps are
 drafts for review, not published work.
 
-Last built: May 2026. Chicago rebuilt Sept. 29, 2026 (see the Chicago notes in sections 2, 4 and 6).
+Last built: May 2026. Chicago and Los Angeles rebuilt Sept. 29, 2026 (see their notes in sections 2, 4, 6 and 7).
 
 ---
 
@@ -75,7 +75,7 @@ window — the numbers the maps actually use.
 | Chicago | Chicago Police via data.cityofchicago.org | `ijzp-q8t2` | Assault, battery, robbery, homicide (public outdoor places only) | Jan 2023 – Dec 2025 | 33,486 |
 | Philadelphia | Philadelphia Police via phl.carto.com | `incidents_part1_part2` | Aggravated assault (firearm and non-firearm), other assaults, robbery (firearm and non-firearm), criminal homicide | Jan 2023 – Apr 2026 | 64,838 |
 | Baltimore | Baltimore Police via Open Baltimore (ArcGIS) | `Part1_Crime_Beta` | Assault, robbery, shooting, homicide (outdoor only) | Jan 2023 – Dec 2024 | 12,832 |
-| Los Angeles | LAPD via data.lacity.org | `2nrs-mtv8` (Crime Data 2020 to present) | Assault, battery, robbery, homicide (sex crimes excluded) | Calendar 2023 | 10,853 |
+| Los Angeles | Los Angeles Police Department (LAPD) via data.lacity.org | `2nrs-mtv8` (old records system) and `k7nn-b2ep` (NIBRS, March 2024 on) | Assault, battery, robbery, homicide (sex crimes excluded; public outdoor places only) | Jan 2023 – Dec 2025 | 26,665 |
 
 Notes:
 - **New York City** crime comes from the existing New York City bivariate map's
@@ -97,7 +97,7 @@ system.
 | Chicago | `v6vf-nfxy` (Jan 2023 – Dec 2025) | Street light out, alley light out, viaduct light out | 134,798 |
 | Philadelphia | `public_cases_fc` | "Street Light Outage" service request | 33,561 |
 | Baltimore | `311_Customer_Service_Requests_2023` and `_2024` | Street light out, knocked-down or missing-pole reports | 31,496 |
-| Los Angeles | `4a4x-mna2` (MyLA311 2023) | Single- and multiple-streetlight issues | 32,258 |
+| Los Angeles | `4a4x-mna2`, `b7dx-7gc3`, `h73f-gn57` (MyLA311 2023-2025; the public file ends July 4, 2025) | Single- and multiple-streetlight issues | 92,927 |
 
 The "show chronic complaint spots" toggle marks the addresses with the most
 streetlight complaints in each city's window.
@@ -113,9 +113,9 @@ streetlight complaints in each city's window.
   moonlight-corrected nighttime Day/Night Band radiance composite from the
   Visible Infrared Imaging Radiometer Suite (VIIRS), measured in nanowatts per
   square centimeter per steradian.
-- **Year used: 2023 for New York City, Philadelphia, Baltimore and Los Angeles.**
-  **Chicago uses the average of 2023, 2024 and 2025**, matching its crime window
-  (see below).
+- **Year used: 2023 for New York City, Philadelphia and Baltimore.**
+  **Chicago and Los Angeles use the average of 2023, 2024 and 2025**, matching
+  their crime windows (see below).
 - **How it was obtained:** NASA's Common Metadata Repository (CMR) granule search
   located the tiles covering each city; the files were downloaded from the
   Land, Atmosphere Near real-time Capability for EOS (LAADS) Distributed Active
@@ -168,8 +168,40 @@ same Black Marble VNP46A4 2023 source as the other cities** — it is not the
 original raster. New York's real crime and 311 data are unchanged. The original
 New York City map remains live and untouched at its own address.
 
-Because no single year falls inside every city's crime window (Los Angeles is
-2023-only; New York is 2024 onward), 2023 lighting is used everywhere. For New
+### About Los Angeles's darkness layer specifically (rebuilt Sept. 29, 2026)
+
+Los Angeles follows the same method as Chicago above: 500 m squares in UTM zone
+11N (EPSG:26911), every square touching the city boundary (data.lacity.org
+`brvb-jr45`) kept, 5,470 squares in all, 2,604 of them with no nighttime
+outdoor violent crime; area-weighted lighting averaged over 2023, 2024 and
+2025 (no square needed the no-data fill); crime Jan. 1, 2023 through Dec. 31,
+2025, at night (8 PM to 6 AM) in public outdoor places.
+
+- **Two crime files.** LAPD moved to a new records system built to the FBI's
+  National Incident-Based Reporting System (NIBRS) on March 7, 2024. The old
+  file (`2nrs-mtv8`) is complete through February 2024 and then tapers off;
+  the new file (`k7nn-b2ep`, block-level coordinates) starts in March 2024.
+  Their monthly totals join smoothly, so the build takes both for the whole
+  window. NIBRS lists each offense in a case separately, so each case counts
+  once, under its most serious offense. New-file cases matching an old-file
+  record on date, time and block (51) are dropped as duplicates. Nighttime
+  outdoor incidents by year: 9,573 in 2023, 8,918 in 2024 and 8,205 in 2025.
+- **Crime categories.** Old file: the assault, battery, robbery and homicide
+  descriptions this map has always used, sex crimes excluded. New file:
+  aggravated assault (13A), simple assault (13B), robbery (120) and murder
+  (09A), minus brandishing, which the old file files under a category this map
+  never counted.
+- **Outdoor list.** Both files' premise labels are sorted in
+  `los-angeles/location-codes.csv` using the same rules as Chicago. Parking lots
+  and garages in both files sit behind `LA_GARAGES` (on by default).
+- **Labels.** Each crime is matched to a neighborhood council (EmpowerLA's
+  2018 boundaries, 99 councils); each square takes the council holding most of
+  its nighttime crimes, or the one its center falls in.
+
+### Why 2023 lighting elsewhere
+
+Because no single year falls inside every original city's crime window (New
+York is 2024 onward), 2023 lighting is used for the other cities. For New
 York that is about a year before its crime window — immaterial, since nighttime
 lights change very little year to year.
 
@@ -182,7 +214,7 @@ Used only for labels in tooltips and the flagged-locations list.
 - **New York City:** neighborhood tabulation areas (in the source data).
 - **Chicago:** community areas (in the source data).
 - **Baltimore:** neighborhood field (in the source data).
-- **Los Angeles:** neighborhood-council name (in the source data).
+- **Los Angeles:** neighborhood-council name. The 311 map uses the name in the 311 data; crimes and the satellite map's squares are matched to EmpowerLA's neighborhood council boundaries by point-in-polygon.
 - **Philadelphia:** the source data has no neighborhood field, so each hexagon
   was matched to a Philadelphia neighborhood by point-in-polygon against an
   OpenStreetMap-derived neighborhoods file (the blackmad/neighborhoods
@@ -197,19 +229,20 @@ Used only for labels in tooltips and the flagged-locations list.
 - **Hexagon grid:** Uber's H3 system — resolution 9 (~a block) for New York City,
   resolution 8 (~a few blocks) for the other four. Chicago's 311 map still uses
   H3 resolution 8.
-- **Square grid (Chicago satellite map only):** 500-meter squares in UTM zone
-  16N, built by `common_grid.py`. The file keeps the name `hexes-sat.geojson`
+- **Square grid (Chicago and Los Angeles satellite maps):** 500-meter squares in
+  UTM zones 16N and 11N, built by `common_grid.py`. The file keeps the name `hexes-sat.geojson`
   so the pages read it unchanged.
 
 ---
 
 ## 7. The most important caveats, by city
 
-- **Los Angeles — crime year.** The coordinate-bearing LAPD dataset
-  (`2nrs-mtv8`) covers 2020–2024, but its 2024 is badly undercounted (about
-  17,000 violent incidents versus roughly 58,000 in 2023 and 2022) because of a
-  mid-2024 records-system change. The map therefore uses calendar **2023**, the
-  most recent complete year, for both layers.
+- **Los Angeles — two record systems.** The old LAPD file (`2nrs-mtv8`) thins
+  out after LAPD's March 2024 records-system change. Until 2026 the new NIBRS
+  file had no coordinates, so the map used calendar 2023 only. The consolidated
+  NIBRS file (`k7nn-b2ep`) now carries block-level coordinates, and the Sept.
+  29, 2026 rebuild joins the two for 2023–2025 (see section 4). The city's
+  public 311 file ends July 4, 2025.
 - **Baltimore — crime end date.** Baltimore Police Part 1 coordinates run only
   through the end of 2024, so both layers cover **2023–2024**.
 - **Philadelphia — no indoor flag.** Unlike the other cities, the Philadelphia

@@ -152,7 +152,7 @@ document.getElementById("h1").innerHTML =
 document.getElementById("intro").innerHTML =
   `Each hex shows two things at once: <b style="color:var(--accent)">311 streetlight-out complaints</b> in it, and <b style="color:var(--accent)">${C.crimeSource}</b> in it. Cells where both are high &mdash; where the city should actively investigate the need for better lighting &mdash; appear in <span style="background:#f0e442;color:#0a0a0c;padding:0 4px;border-radius:2px;font-weight:600">yellow</span>.`;
 document.getElementById("measured-crime").innerHTML =
-  `<b>Crime layer.</b> ${C.crimeCats} &mdash; the street-level violence street lighting most plausibly affects. Sex crimes are excluded (they happen overwhelmingly indoors and the lighting/crime literature does not show a meaningful relationship for them). Incidents whose location is clearly indoors (apartments, residences, stores, etc.) are also excluded; records with a blank or outdoor location are kept.`;
+  `<b>Crime layer.</b> ${C.crimeCats} &mdash; the street-level violence street lighting most plausibly affects. Sex crimes are excluded (they happen overwhelmingly indoors and the lighting/crime literature does not show a meaningful relationship for them). ${C.outdoorDef || "Incidents whose location is clearly indoors (apartments, residences, stores, etc.) are also excluded; records with a blank or outdoor location are kept."}`;
 document.getElementById("measured-outage").innerHTML =
   `<b>Outages layer.</b> 311 streetlight complaints &mdash; ${C.outageTypes}.`;
 document.getElementById("caveat-geocode").innerHTML =

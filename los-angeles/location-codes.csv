@@ -1,0 +1,574 @@
+source,premis_desc,decision,night_2023_2025,all_hours_2023_2025,note
+NIBRS k7nn-b2ep,Street/Parkway,IN,6924,16655,
+legacy 2nrs-mtv8,STREET,IN,6808,16447,
+NIBRS k7nn-b2ep,Sidewalk,IN,3368,9154,
+legacy 2nrs-mtv8,SIDEWALK,IN,2756,7564,
+NIBRS k7nn-b2ep,Highway / Road / Alley / Street,IN,962,2293,
+NIBRS k7nn-b2ep,"Vehicle, Passenger/Truck",IN,467,1058,Chicago counts cars
+NIBRS k7nn-b2ep,Alley,IN,330,851,
+NIBRS k7nn-b2ep,Park / Playground,IN,318,1096,
+legacy 2nrs-mtv8,ALLEY,IN,296,781,
+legacy 2nrs-mtv8,PARK/PLAYGROUND,IN,257,837,
+legacy 2nrs-mtv8,"VEHICLE, PASSENGER/TRUCK",IN,211,498,Chicago counts cars
+legacy 2nrs-mtv8,BUS STOP,IN,113,362,
+NIBRS k7nn-b2ep,Driveway (other),IN,77,225,"UNSURE: non-residential driveway, like a parking lot entrance"
+NIBRS k7nn-b2ep,Any Vehicle,IN,66,164,Chicago counts cars
+legacy 2nrs-mtv8,TRANSIENT ENCAMPMENT,IN,61,169,"UNSURE: outdoors on public land, but also where people live"
+legacy 2nrs-mtv8,BEACH,IN,60,156,
+NIBRS k7nn-b2ep,Beach,IN,48,159,
+NIBRS k7nn-b2ep,Public Use Area,IN,27,72,UNSURE: meaning not documented; reads as public open space
+NIBRS k7nn-b2ep,Transient Encampment,IN,19,56,"UNSURE: outdoors on public land, but also where people live"
+legacy 2nrs-mtv8,FREEWAY,IN,13,33,
+NIBRS k7nn-b2ep,Underpass/Bridge,IN,11,26,
+NIBRS k7nn-b2ep,Freeway (incl ramps),IN,10,34,
+NIBRS k7nn-b2ep,Skateboard Park/Facility,IN,10,24,
+NIBRS k7nn-b2ep,Catering/Ice Cream Truck,IN,9,12,cookbook counts mobile food
+NIBRS k7nn-b2ep,Field / Woods / Vacant Field,IN,9,32,open lot
+NIBRS k7nn-b2ep,Construction Site,IN,8,62,
+legacy 2nrs-mtv8,BUS STOP/LAYOVER (ALSO QUERY 124),IN,7,17,
+legacy 2nrs-mtv8,CONSTRUCTION SITE,IN,7,44,
+legacy 2nrs-mtv8,RIVER BED*,IN,6,18,
+legacy 2nrs-mtv8,VACANT LOT,IN,6,16,
+NIBRS k7nn-b2ep,River Bed,IN,6,25,
+legacy 2nrs-mtv8,SLIPS/DOCK/MARINA/BOAT,IN,4,11,cookbook counts marinas and piers
+legacy 2nrs-mtv8,UNDERPASS/BRIDGE*,IN,4,10,
+NIBRS k7nn-b2ep,Truck-Commercial,IN,4,7,Chicago counts commercial vehicles
+legacy 2nrs-mtv8,TUNNEL,IN,3,4,
+legacy 2nrs-mtv8,VALET,IN,3,4,curbside valet stand
+NIBRS k7nn-b2ep,Basketball Courts,IN,3,17,mostly outdoor park courts
+NIBRS k7nn-b2ep,Public Restroom Outside Area,IN,3,7,the outdoor area at a public restroom
+NIBRS k7nn-b2ep,Trash Can/ Trash Dumpster,IN,3,3,
+NIBRS k7nn-b2ep,Valet,IN,3,6,curbside valet stand
+legacy 2nrs-mtv8,BASKETBALL COURTS,IN,2,7,mostly outdoor park courts
+legacy 2nrs-mtv8,"BUS DEPOT/TERMINAL, OTHER THAN MTA",IN,2,5,cookbook counts bus terminals
+legacy 2nrs-mtv8,PEDESTRIAN OVERCROSSING,IN,2,3,
+legacy 2nrs-mtv8,PUBLIC RESTROOM/OUTSIDE*,IN,2,4,the outdoor area at a public restroom
+NIBRS k7nn-b2ep,Tunnel,IN,2,4,
+legacy 2nrs-mtv8,CATERING/ICE CREAM TRUCK,IN,1,4,cookbook counts mobile food
+legacy 2nrs-mtv8,DAM/RESERVOIR,IN,1,2,
+legacy 2nrs-mtv8,MUSCLE BEACH,IN,1,1,
+legacy 2nrs-mtv8,"TRUCK, COMMERICAL",IN,1,1,Chicago counts commercial vehicles
+NIBRS k7nn-b2ep,Camp / Campground,IN,1,2,
+NIBRS k7nn-b2ep,Cemetary,IN,1,4,
+NIBRS k7nn-b2ep,Dam/Reservoir,IN,1,2,
+NIBRS k7nn-b2ep,Muscle Beach,IN,1,5,
+NIBRS k7nn-b2ep,Ped Overcrossing,IN,1,3,
+NIBRS k7nn-b2ep,Taxi,IN,1,2,
+legacy 2nrs-mtv8,CEMETARY*,IN,0,2,
+legacy 2nrs-mtv8,GOLF COURSE*,IN,0,10,
+legacy 2nrs-mtv8,MAIL BOX,IN,0,1,cookbook counts outdoor mailboxes
+legacy 2nrs-mtv8,PAY PHONE,IN,0,2,"street furniture, like a mailbox"
+legacy 2nrs-mtv8,SKATEBOARD FACILITY/SKATEBOARD PARK*,IN,0,2,
+NIBRS k7nn-b2ep,Golf Course,IN,0,9,
+NIBRS k7nn-b2ep,Lake / Waterway,IN,0,1,
+NIBRS k7nn-b2ep,Mail Box,IN,0,1,cookbook counts outdoor mailboxes
+NIBRS k7nn-b2ep,Slips/Dock/Marina/Boat,IN,0,3,cookbook counts marinas and piers
+NIBRS k7nn-b2ep,Parking Lot / Garage / Drop Lot,GARAGE,1706,4683,"switch: one code for open lots and enclosed garages, like Chicago and New York"
+legacy 2nrs-mtv8,PARKING LOT,GARAGE,1657,4253,switch: lots and garages (legacy file lists open lots separately; switched with the others so both files move together)
+legacy 2nrs-mtv8,PARKING UNDERGROUND/BUILDING,GARAGE,52,124,switch: enclosed garage
+NIBRS k7nn-b2ep,Parking underground/building,GARAGE,44,106,switch: enclosed garage
+NIBRS k7nn-b2ep,MTA Parking Lot,GARAGE,10,35,switch: like Chicago's transit parking lot code
+legacy 2nrs-mtv8,MTA PROPERTY OR PARKING LOT,GARAGE,3,9,switch: like Chicago's transit parking lot code
+legacy 2nrs-mtv8,SINGLE FAMILY DWELLING,OUT,5512,13089,
+legacy 2nrs-mtv8,"MULTI-UNIT DWELLING (APARTMENT, DUPLEX, ETC)",OUT,5096,11958,
+NIBRS k7nn-b2ep,Residence / Home / Driveway,OUT,4805,11271,residence
+NIBRS k7nn-b2ep,Apartment/Condominium/Townhouse,OUT,2218,5003,
+NIBRS k7nn-b2ep,Apartment/Condo Common Laundry Room,OUT,2010,4627,
+NIBRS k7nn-b2ep,Victim's Residence,OUT,1610,3773,
+NIBRS k7nn-b2ep,Single Family Home,OUT,861,2102,
+legacy 2nrs-mtv8,OTHER BUSINESS,OUT,742,2823,"transit: out, like Chicago"
+NIBRS k7nn-b2ep,Other Business,OUT,609,2441,"transit: out, like Chicago"
+NIBRS k7nn-b2ep,Shared Residence,OUT,541,1324,
+NIBRS k7nn-b2ep,Offender's Residence,OUT,466,1003,
+NIBRS k7nn-b2ep,Convenience Store,OUT,427,1170,
+NIBRS k7nn-b2ep,Hotel/Motel,OUT,411,822,
+legacy 2nrs-mtv8,RESTAURANT/FAST FOOD,OUT,348,973,
+NIBRS k7nn-b2ep,"Bar, Cocktail Lounge, Restaurant",OUT,335,397,
+NIBRS k7nn-b2ep,Restaurant,OUT,325,1059,
+NIBRS k7nn-b2ep,Service / Gas Station,OUT,288,741,"transit: out, like Chicago"
+legacy 2nrs-mtv8,GAS STATION,OUT,237,625,"transit: out, like Chicago"
+legacy 2nrs-mtv8,MINI-MART,OUT,233,514,
+legacy 2nrs-mtv8,DRIVEWAY,OUT,224,598,"residential, like Chicago"
+legacy 2nrs-mtv8,HOTEL,OUT,215,442,
+NIBRS k7nn-b2ep,Air / Bus / Train Terminal,OUT,193,772,"UNSURE: bus terminals count in the cookbook, but this code also covers airport and rail terminals, which do not"
+NIBRS k7nn-b2ep,Other Residence,OUT,183,454,
+legacy 2nrs-mtv8,BAR/COCKTAIL/NIGHTCLUB,OUT,169,191,
+legacy 2nrs-mtv8,MOTEL,OUT,165,294,
+NIBRS k7nn-b2ep,Night Club (open evenings only),OUT,165,171,
+NIBRS k7nn-b2ep,Grocery/Supermarket,OUT,156,728,
+legacy 2nrs-mtv8,YARD (RESIDENTIAL/BUSINESS),OUT,144,400,"yards are out, like Chicago"
+legacy 2nrs-mtv8,MARKET,OUT,143,696,
+legacy 2nrs-mtv8,OTHER PREMISE,OUT,143,419,unspecified
+legacy 2nrs-mtv8,OTHER RESIDENCE,OUT,142,360,
+NIBRS k7nn-b2ep,Hospital,OUT,142,376,
+NIBRS k7nn-b2ep,Liquor Store,OUT,139,384,
+NIBRS k7nn-b2ep,Multiple Family Dwelling,OUT,125,296,
+legacy 2nrs-mtv8,HOSPITAL,OUT,124,356,
+legacy 2nrs-mtv8,MTA BUS,OUT,124,645,"transit: out, like Chicago"
+legacy 2nrs-mtv8,NIGHT CLUB (OPEN EVENINGS ONLY),OUT,110,115,
+NIBRS k7nn-b2ep,Mobile Home/Trailers/Construction Trailers/RV's/Motorhome,OUT,110,279,"UNSURE: a dwelling, though many RVs are parked on streets"
+NIBRS k7nn-b2ep,Shelter - Mission / Homeless,OUT,109,297,
+NIBRS k7nn-b2ep,Residential Facility,OUT,107,314,
+legacy 2nrs-mtv8,LIQUOR STORE,OUT,105,270,
+NIBRS k7nn-b2ep,Single Residence Occupancy (SRO's) Locations,OUT,103,245,
+legacy 2nrs-mtv8,TRANSPORTATION FACILITY (AIRPORT),OUT,97,266,
+NIBRS k7nn-b2ep,Yard (adjacent to Residential Location),OUT,90,261,"yards are out, like Chicago"
+NIBRS k7nn-b2ep,MTA Bus,OUT,85,409,"transit: out, like Chicago"
+NIBRS k7nn-b2ep,Department / Discount Store,OUT,84,554,
+NIBRS k7nn-b2ep,Driveway (Residential),OUT,84,234,"residential, like Chicago"
+legacy 2nrs-mtv8,DEPARTMENT STORE,OUT,80,445,
+legacy 2nrs-mtv8,LA UNION STATION (NOT LINE SPECIFIC),OUT,80,222,"transit: out, like Chicago"
+NIBRS k7nn-b2ep,Location Unknown,OUT,75,126,unknown
+legacy 2nrs-mtv8,GARAGE/CARPORT,OUT,70,181,"residential garage, like Chicago"
+legacy 2nrs-mtv8,LAUNDROMAT,OUT,70,185,
+legacy 2nrs-mtv8,MISSIONS/SHELTERS,OUT,69,189,
+NIBRS k7nn-b2ep,Commercial / Office Building / Other Commerical,OUT,65,265,
+NIBRS k7nn-b2ep,Transitional Housing/Halfway House,OUT,63,230,
+legacy 2nrs-mtv8,NURSING/CONVALESCENT/RETIREMENT HOME,OUT,56,229,
+legacy 2nrs-mtv8,OTHER STORE,OUT,56,256,
+legacy 2nrs-mtv8,DRUG STORE,OUT,52,212,
+NIBRS k7nn-b2ep,Clothing Store,OUT,51,334,
+NIBRS k7nn-b2ep,Dry Cleaner / Laundry,OUT,51,180,
+legacy 2nrs-mtv8,BAR/SPORTS BAR (OPEN DAY & NIGHT),OUT,48,62,
+NIBRS k7nn-b2ep,Dodger Stadium,OUT,47,69,
+NIBRS k7nn-b2ep,Porch Residential,OUT,46,145,"porches are out, like Chicago"
+NIBRS k7nn-b2ep,Market,OUT,45,229,
+NIBRS k7nn-b2ep,Nursing Home,OUT,41,152,
+legacy 2nrs-mtv8,TRANSITIONAL HOUSING/HALFWAY HOUSE,OUT,40,117,
+NIBRS k7nn-b2ep,Other Store,OUT,40,236,
+legacy 2nrs-mtv8,DODGER STADIUM,OUT,39,51,
+legacy 2nrs-mtv8,MOBILE HOME/TRAILERS/CONSTRUCTION TRAILERS/RV'S/MOTORHOME,OUT,39,101,"UNSURE: a dwelling, though many RVs are parked on streets"
+NIBRS k7nn-b2ep,Concert Venue/Mass Gathering,OUT,39,48,
+legacy 2nrs-mtv8,MTA - RED LINE - NORTH HOLLYWOOD,OUT,36,126,"transit: out, like Chicago"
+legacy 2nrs-mtv8,GROUP HOME,OUT,35,102,
+legacy 2nrs-mtv8,THEATRE/MOVIE,OUT,35,57,
+legacy 2nrs-mtv8,OTHER/OUTSIDE,OUT,33,108,"UNSURE: outdoors but unspecified; could be private (yards, patios); New York's OTHER is excluded"
+NIBRS k7nn-b2ep,Group Home,OUT,33,92,
+legacy 2nrs-mtv8,CLOTHING STORE,OUT,32,286,
+NIBRS k7nn-b2ep,LA Union Station (not line specific),OUT,32,105,"transit: out, like Chicago"
+NIBRS k7nn-b2ep,Pharmacy Inside Store/Supermarket,OUT,32,140,
+legacy 2nrs-mtv8,HEALTH SPA/GYM,OUT,31,93,
+NIBRS k7nn-b2ep,Shopping Mall,OUT,31,209,
+legacy 2nrs-mtv8,SINGLE RESIDENCE OCCUPANCY (SRO'S) LOCATIONS,OUT,29,56,
+NIBRS k7nn-b2ep,Other,OUT,29,95,"unspecified, like Chicago's OTHER (SPECIFY)"
+legacy 2nrs-mtv8,MTA - RED LINE - WESTLAKE/MACARTHUR PARK,OUT,28,87,"transit: out, like Chicago"
+legacy 2nrs-mtv8,"PORCH, RESIDENTIAL",OUT,28,60,"porches are out, like Chicago"
+legacy 2nrs-mtv8,MTA - RED LINE - 7TH AND METRO CENTER,OUT,27,95,"transit: out, like Chicago"
+NIBRS k7nn-b2ep,Condominium/Townhouse,OUT,27,80,
+NIBRS k7nn-b2ep,Health Spa/Gym,OUT,26,108,
+NIBRS k7nn-b2ep,Warehouse,OUT,26,61,
+NIBRS k7nn-b2ep,Arena / Stadium / Fairgrounds /Coliseum,OUT,25,42,
+legacy 2nrs-mtv8,"DISCOUNT STORE (99 CENT,DOLLAR,ETC.",OUT,24,158,
+legacy 2nrs-mtv8,SHOPPING MALL (COMMON AREA),OUT,24,146,
+NIBRS k7nn-b2ep,Drug Store / Pharmacy / Medical Supply Building,OUT,24,100,
+NIBRS k7nn-b2ep,Project/Tenement/Public Housing,OUT,24,84,
+legacy 2nrs-mtv8,CONDOMINIUM/TOWNHOUSE,OUT,23,66,
+legacy 2nrs-mtv8,POLICE FACILITY,OUT,23,85,
+NIBRS k7nn-b2ep,Stairwell,OUT,23,56,
+NIBRS k7nn-b2ep,Airports/Transportation Facility,OUT,22,50,
+NIBRS k7nn-b2ep,MTA B Red Line -North Hollywood,OUT,22,63,"transit: out, like Chicago"
+NIBRS k7nn-b2ep,School / College,OUT,22,222,
+legacy 2nrs-mtv8,CHURCH/CHAPEL (CHANGED 03-03 FROM CHURCH/TEMPLE),OUT,21,65,
+legacy 2nrs-mtv8,WAREHOUSE,OUT,21,47,
+legacy 2nrs-mtv8,(blank),OUT,21,54,
+NIBRS k7nn-b2ep,7th and Metro Center (not line specific),OUT,21,68,"transit: out, like Chicago"
+NIBRS k7nn-b2ep,Elevator,OUT,20,68,
+legacy 2nrs-mtv8,7TH AND METRO CENTER (NOT LINE SPECIFIC),OUT,19,53,"transit: out, like Chicago"
+legacy 2nrs-mtv8,DETENTION/JAIL FACILITY,OUT,19,32,
+NIBRS k7nn-b2ep,Tobacco Shop,OUT,19,43,
+legacy 2nrs-mtv8,MTA - RED LINE - HOLLYWOOD/HIGHLAND,OUT,18,37,"transit: out, like Chicago"
+legacy 2nrs-mtv8,TOBACCO SHOP,OUT,18,54,
+NIBRS k7nn-b2ep,ATM Separate from Bank,OUT,18,33,New York has an ATM code and the cookbook leaves it out
+legacy 2nrs-mtv8,"COFFEE SHOP (STARBUCKS, COFFEE BEAN, PEET'S, ETC.)",OUT,17,106,
+NIBRS k7nn-b2ep,Abandoned / Condemned Structure,OUT,17,32,
+NIBRS k7nn-b2ep,Drive-thru (meals/beverages),OUT,17,41,
+NIBRS k7nn-b2ep,Medical Clinic,OUT,17,52,
+NIBRS k7nn-b2ep,Pool/Public/Indoor or outdoor,OUT,17,48,
+NIBRS k7nn-b2ep,School - High School,OUT,16,150,
+legacy 2nrs-mtv8,HIGH SCHOOL,OUT,15,420,
+NIBRS k7nn-b2ep,Mini-Mart,OUT,15,48,
+NIBRS k7nn-b2ep,Detention/Jail Facility,OUT,14,47,
+NIBRS k7nn-b2ep,Police Facility,OUT,14,48,
+legacy 2nrs-mtv8,STAPLES CENTER *,OUT,13,19,
+NIBRS k7nn-b2ep,Car Wash,OUT,13,63,
+legacy 2nrs-mtv8,DRIVE THRU*,OUT,12,19,
+legacy 2nrs-mtv8,SPORTS ARENA,OUT,12,16,
+NIBRS k7nn-b2ep,"Coffee Shop (Starbucks, Coffee Bean, Peet's, Etc.)",OUT,12,116,
+NIBRS k7nn-b2ep,Movie Theater,OUT,12,31,
+NIBRS k7nn-b2ep,MTA B Red Line -Union Station,OUT,12,46,"transit: out, like Chicago"
+NIBRS k7nn-b2ep,Patio (Residential),OUT,12,38,
+NIBRS k7nn-b2ep,Public Restroom,OUT,12,29,
+legacy 2nrs-mtv8,AUTOMATED TELLER MACHINE (ATM),OUT,11,21,New York has an ATM code and the cookbook leaves it out
+legacy 2nrs-mtv8,CAR WASH,OUT,11,38,
+legacy 2nrs-mtv8,PROJECT/TENEMENT/PUBLIC HOUSING,OUT,11,47,
+legacy 2nrs-mtv8,"SPORTS VENUE, OTHER",OUT,11,19,
+NIBRS k7nn-b2ep,Auto Supply Store,OUT,11,48,
+NIBRS k7nn-b2ep,Marijuana Dispensary,OUT,11,34,
+NIBRS k7nn-b2ep,MTA B Red Line -Westlake/Macarthur Park,OUT,11,36,"transit: out, like Chicago"
+NIBRS k7nn-b2ep,"Studio (film/photo, music)",OUT,11,17,
+legacy 2nrs-mtv8,APARTMENT/CONDO COMMON LAUNDRY ROOM,OUT,10,28,
+legacy 2nrs-mtv8,AUTO REPAIR SHOP,OUT,10,62,
+legacy 2nrs-mtv8,AUTO SUPPLY STORE*,OUT,10,40,
+legacy 2nrs-mtv8,BOWLING ALLEY*,OUT,10,10,
+legacy 2nrs-mtv8,MEDICAL/DENTAL OFFICES,OUT,10,75,
+legacy 2nrs-mtv8,MEDICAL MARIJUANA FACILITIES/BUSINESSES,OUT,10,18,"transit: out, like Chicago"
+legacy 2nrs-mtv8,PATIO*,OUT,10,38,
+legacy 2nrs-mtv8,SEX ORIENTED/BOOK STORE/STRIP CLUB/GENTLEMAN'S CLUB,OUT,10,16,
+NIBRS k7nn-b2ep,Adult Daycare Facility,OUT,10,47,
+legacy 2nrs-mtv8,MTA - RED LINE - HOLLYWOOD/VINE,OUT,9,33,"transit: out, like Chicago"
+legacy 2nrs-mtv8,MTA - RED LINE - WILSHIRE/VERMONT,OUT,9,41,"transit: out, like Chicago"
+NIBRS k7nn-b2ep,Bank / Savings and Loan,OUT,9,60,
+NIBRS k7nn-b2ep,Church/Chapel,OUT,9,38,
+NIBRS k7nn-b2ep,Entertainment/Comedy Club (other),OUT,9,10,
+NIBRS k7nn-b2ep,Library,OUT,9,90,
+NIBRS k7nn-b2ep,Metrolink Train,OUT,9,25,"transit: out, like Chicago"
+NIBRS k7nn-b2ep,"Municipal Bus Lines (LADOT, DASH)",OUT,9,49,"transit: out, like Chicago"
+NIBRS k7nn-b2ep,Private Health Facility,OUT,9,57,
+NIBRS k7nn-b2ep,"Sport Venue, other",OUT,9,13,
+NIBRS k7nn-b2ep,Tow Yard,OUT,9,18,
+NIBRS k7nn-b2ep,Train Tracks,OUT,9,23,"transit right-of-way, like Chicago"
+legacy 2nrs-mtv8,MTA - RED LINE - UNIVERSAL CITY/STUDIO CITY,OUT,8,22,"transit: out, like Chicago"
+legacy 2nrs-mtv8,MTA - RED LINE - VERMONT/BEVERLY,OUT,8,25,"transit: out, like Chicago"
+legacy 2nrs-mtv8,OFFICE BUILDING/OFFICE,OUT,8,66,
+NIBRS k7nn-b2ep,Barber / Beauty Shop,OUT,8,45,
+NIBRS k7nn-b2ep,Community Center,OUT,8,21,
+NIBRS k7nn-b2ep,High-rise Building,OUT,8,22,
+NIBRS k7nn-b2ep,MTA B Red Line -7th and Metro Center,OUT,8,32,"transit: out, like Chicago"
+NIBRS k7nn-b2ep,MTA B Red Line -Pershing Square,OUT,8,28,"transit: out, like Chicago"
+NIBRS k7nn-b2ep,MTA B Red Line -Wilshire/Vermont,OUT,8,16,"transit: out, like Chicago"
+NIBRS k7nn-b2ep,Patio (Other),OUT,8,17,
+NIBRS k7nn-b2ep,School - Elementary,OUT,8,101,
+legacy 2nrs-mtv8,ELEVATOR,OUT,7,22,
+legacy 2nrs-mtv8,MTA - RED LINE - HOLLYWOOD/WESTERN,OUT,7,28,"transit: out, like Chicago"
+legacy 2nrs-mtv8,MTA - RED LINE - PERSHING SQUARE,OUT,7,43,"transit: out, like Chicago"
+legacy 2nrs-mtv8,MTA - RED LINE - UNION STATION,OUT,7,34,"transit: out, like Chicago"
+legacy 2nrs-mtv8,PHARMACY INSIDE STORE OR SUPERMARKET*,OUT,7,18,
+NIBRS k7nn-b2ep,Auto Mechanic / Repair Shop,OUT,7,67,
+NIBRS k7nn-b2ep,Church / Synagogue / Temple / Religious Facility,OUT,7,46,
+NIBRS k7nn-b2ep,MTA A Blue Line -7th and Metro Center,OUT,7,23,"transit: out, like Chicago"
+NIBRS k7nn-b2ep,MTA A Blue Line -Vernon,OUT,7,16,"transit: out, like Chicago"
+NIBRS k7nn-b2ep,MTA B Red Line -Hollywood/Highland,OUT,7,23,"transit: out, like Chicago"
+legacy 2nrs-mtv8,DAY CARE/ADULTS*,OUT,6,20,
+legacy 2nrs-mtv8,ENTERTAINMENT/COMEDY CLUB (OTHER),OUT,6,8,
+legacy 2nrs-mtv8,FOSTER HOME BOYS OR GIRLS*,OUT,6,6,
+legacy 2nrs-mtv8,MTA - BLUE LINE - GRAND/LATTC,OUT,6,18,"transit: out, like Chicago"
+legacy 2nrs-mtv8,MTA - RED LINE - VERMONT/SUNSET,OUT,6,18,"transit: out, like Chicago"
+legacy 2nrs-mtv8,MUNICIPAL BUS LINE INCLUDES LADOT/DASH,OUT,6,16,"transit: out, like Chicago"
+legacy 2nrs-mtv8,SHORT-TERM VACATION RENTAL,OUT,6,9,
+legacy 2nrs-mtv8,STUDIO (FILM/PHOTOGRAPHIC/MUSIC),OUT,6,12,
+NIBRS k7nn-b2ep,Bowling Alley,OUT,6,9,
+NIBRS k7nn-b2ep,MTA A Blue Line -Pico,OUT,6,23,"transit: out, like Chicago"
+NIBRS k7nn-b2ep,MTA B Red Line -Hollywood/Vine,OUT,6,14,"transit: out, like Chicago"
+NIBRS k7nn-b2ep,MTA B Red Line -Universal City/Studio City,OUT,6,15,"transit: out, like Chicago"
+NIBRS k7nn-b2ep,MTA E Expo Line - Expo/Sepulveda,OUT,6,10,"transit: out, like Chicago"
+NIBRS k7nn-b2ep,MTA G Orange Line - North Hollywood,OUT,6,19,"transit: out, like Chicago"
+NIBRS k7nn-b2ep,School - Junior High,OUT,6,143,
+NIBRS k7nn-b2ep,Short-term vacation rental,OUT,6,9,
+NIBRS k7nn-b2ep,"Speciality Store (TV, Fur, Etc)",OUT,6,27,
+NIBRS k7nn-b2ep,Tram/Streetcar,OUT,6,15,
+legacy 2nrs-mtv8,BUS-CHARTER/PRIVATE,OUT,5,23,"transit: out, like Chicago"
+legacy 2nrs-mtv8,COLLEGE/JUNIOR COLLEGE/UNIVERSITY,OUT,5,47,
+legacy 2nrs-mtv8,MOSQUE*,OUT,5,9,
+legacy 2nrs-mtv8,MTA - EXPO LINE - LA CIENEGA/JEFFERSON,OUT,5,11,"transit: out, like Chicago"
+legacy 2nrs-mtv8,POOL-PUBLIC/OUTDOOR OR INDOOR*,OUT,5,9,
+legacy 2nrs-mtv8,TRAIN TRACKS,OUT,5,12,"transit right-of-way, like Chicago"
+NIBRS k7nn-b2ep,Balcony,OUT,5,12,
+NIBRS k7nn-b2ep,Crypto.com,OUT,5,7,
+NIBRS k7nn-b2ep,Drive Thru banking window/counter,OUT,5,5,
+NIBRS k7nn-b2ep,Hospice,OUT,5,16,
+NIBRS k7nn-b2ep,Massage Parlor,OUT,5,12,
+NIBRS k7nn-b2ep,MTA A Blue Line -San Pedro,OUT,5,10,"transit: out, like Chicago"
+NIBRS k7nn-b2ep,MTA B Red Line -Vermont/Sunset,OUT,5,19,"transit: out, like Chicago"
+NIBRS k7nn-b2ep,MTA E Expo Line - Expo/Vermont,OUT,5,16,"transit: out, like Chicago"
+NIBRS k7nn-b2ep,MTA E Expo Line - La Cienega/Jefferson,OUT,5,10,"transit: out, like Chicago"
+NIBRS k7nn-b2ep,Tattoo Parlor,OUT,5,7,
+NIBRS k7nn-b2ep,Yard (Business),OUT,5,15,"yards are out, like Chicago"
+legacy 2nrs-mtv8,ABANDONED BUILDING ABANDONED HOUSE,OUT,4,12,
+legacy 2nrs-mtv8,BALCONY*,OUT,4,6,
+legacy 2nrs-mtv8,BEAUTY/BARBER SHOP,OUT,4,46,
+legacy 2nrs-mtv8,"DIY CENTER (LOWE'S,HOME DEPOT,OSH,CONTRACTORS WAREHOUSE)",OUT,4,49,
+legacy 2nrs-mtv8,ELEMENTARY SCHOOL,OUT,4,103,
+legacy 2nrs-mtv8,JEWELRY STORE,OUT,4,22,
+legacy 2nrs-mtv8,METROLINK TRAIN,OUT,4,12,"transit: out, like Chicago"
+legacy 2nrs-mtv8,MTA - BLUE LINE - PICO,OUT,4,17,"transit: out, like Chicago"
+legacy 2nrs-mtv8,MTA - BLUE LINE - WASHINGTON,OUT,4,17,"transit: out, like Chicago"
+legacy 2nrs-mtv8,MTA - ORANGE LINE - CANOGA,OUT,4,7,"transit: out, like Chicago"
+legacy 2nrs-mtv8,MTA - PURPLE LINE - PERSHING SQUARE,OUT,4,4,"transit: out, like Chicago"
+legacy 2nrs-mtv8,MTA - RED LINE - CIVIC CENTER/GRAND PARK,OUT,4,9,"transit: out, like Chicago"
+legacy 2nrs-mtv8,THE GROVE,OUT,4,18,
+NIBRS k7nn-b2ep,Common Laundry Room,OUT,4,14,
+NIBRS k7nn-b2ep,Government / Public Building,OUT,4,51,
+NIBRS k7nn-b2ep,MTA A Blue Line -Washington,OUT,4,14,"transit: out, like Chicago"
+NIBRS k7nn-b2ep,MTA B Red Line -Hollywood/Western,OUT,4,15,"transit: out, like Chicago"
+NIBRS k7nn-b2ep,MTA E Expo Line - Expo/Bundy,OUT,4,6,"transit: out, like Chicago"
+NIBRS k7nn-b2ep,MTA J Silver Line -Harbor Gateway Transit Ctr,OUT,4,8,"transit: out, like Chicago"
+NIBRS k7nn-b2ep,Nursery Flower Shop,OUT,4,11,
+NIBRS k7nn-b2ep,Uninhabited Residence,OUT,4,9,
+legacy 2nrs-mtv8,ABATEMENT LOCATION,OUT,3,3,
+legacy 2nrs-mtv8,BANK,OUT,3,59,
+legacy 2nrs-mtv8,COLISEUM,OUT,3,6,
+legacy 2nrs-mtv8,"GOVERNMENT FACILITY (FEDERAL,STATE, COUNTY & CITY)",OUT,3,59,
+legacy 2nrs-mtv8,LIBRARY,OUT,3,44,
+legacy 2nrs-mtv8,MASSAGE PARLOR,OUT,3,13,
+legacy 2nrs-mtv8,MTA - BLUE LINE - 103RD/WATTS TOWERS,OUT,3,12,"transit: out, like Chicago"
+legacy 2nrs-mtv8,MTA - BLUE LINE - VERNON,OUT,3,14,"transit: out, like Chicago"
+legacy 2nrs-mtv8,MTA - EXPO LINE - EXPO/CRENSHAW,OUT,3,15,"transit: out, like Chicago"
+legacy 2nrs-mtv8,MTA - EXPO LINE - EXPO/LA BREA,OUT,3,16,"transit: out, like Chicago"
+legacy 2nrs-mtv8,MTA - EXPO LINE - EXPO/SEPULVEDA,OUT,3,10,"transit: out, like Chicago"
+legacy 2nrs-mtv8,MTA - GREEN LINE - HARBOR FWY,OUT,3,13,"transit: out, like Chicago"
+legacy 2nrs-mtv8,MTA - ORANGE LINE - CHATSWORTH,OUT,3,7,"transit: out, like Chicago"
+legacy 2nrs-mtv8,MTA - ORANGE LINE - SEPULVEDA,OUT,3,6,"transit: out, like Chicago"
+legacy 2nrs-mtv8,PAWN SHOP,OUT,3,6,
+legacy 2nrs-mtv8,STAIRWELL*,OUT,3,9,
+legacy 2nrs-mtv8,"TRAIN, OTHER THAN MTA (ALSO QUERY 809/810/811)",OUT,3,8,"transit: out, like Chicago"
+NIBRS k7nn-b2ep,Aircraft,OUT,3,6,
+NIBRS k7nn-b2ep,Bus-Charter/Private,OUT,3,4,"transit: out, like Chicago"
+NIBRS k7nn-b2ep,Cell Phone Store,OUT,3,86,
+NIBRS k7nn-b2ep,Convention Center,OUT,3,9,
+NIBRS k7nn-b2ep,Hardware Supply Store,OUT,3,35,
+NIBRS k7nn-b2ep,Jail / Prison / Penitentiary / Correction Facility,OUT,3,12,
+NIBRS k7nn-b2ep,MTA A Blue Line -Grand/LATTC,OUT,3,15,"transit: out, like Chicago"
+NIBRS k7nn-b2ep,MTA B Red Line -Vermont/Beverly,OUT,3,13,"transit: out, like Chicago"
+NIBRS k7nn-b2ep,MTA C Green Line - Avalon,OUT,3,15,"transit: out, like Chicago"
+NIBRS k7nn-b2ep,MTA E Expo Line - Expo/Western,OUT,3,16,"transit: out, like Chicago"
+NIBRS k7nn-b2ep,MTA E Expo Line - Jefferson/USC,OUT,3,5,"transit: out, like Chicago"
+NIBRS k7nn-b2ep,MTA E Expo Line - LATTC/Ortho Institute,OUT,3,11,"transit: out, like Chicago"
+NIBRS k7nn-b2ep,MTA G Orange Line - Reseda,OUT,3,4,"transit: out, like Chicago"
+NIBRS k7nn-b2ep,MTA G Orange Line -Roscoe,OUT,3,3,"transit: out, like Chicago"
+NIBRS k7nn-b2ep,MTA L Gold Line - Little Tokyo/Arts District,OUT,3,20,"transit: out, like Chicago"
+NIBRS k7nn-b2ep,MTA L Gold Line - Mariachi Plaza,OUT,3,4,"transit: out, like Chicago"
+NIBRS k7nn-b2ep,MTA L Gold Line - Soto,OUT,3,9,"transit: out, like Chicago"
+NIBRS k7nn-b2ep,Rental Storage Facility,OUT,3,23,
+NIBRS k7nn-b2ep,Train Depot/Terminal other than MTA,OUT,3,10,"transit: out, like Chicago"
+NIBRS k7nn-b2ep,Vehicle Storage Lot,OUT,3,5,
+legacy 2nrs-mtv8,AIRCRAFT,OUT,2,2,
+legacy 2nrs-mtv8,AMUSEMENT PARK*,OUT,2,2,
+legacy 2nrs-mtv8,"AUTO DEALERSHIP (CHEVY, FORD, BMW, MERCEDES, ETC.)",OUT,2,13,
+legacy 2nrs-mtv8,AUTO SALES LOT,OUT,2,7,
+legacy 2nrs-mtv8,CELL PHONE STORE,OUT,2,62,
+legacy 2nrs-mtv8,FACTORY,OUT,2,5,
+legacy 2nrs-mtv8,FRAT HOUSE/SORORITY/DORMITORY,OUT,2,7,
+legacy 2nrs-mtv8,JUNIOR HIGH SCHOOL,OUT,2,289,
+legacy 2nrs-mtv8,"MEMBERSHIP STORE (COSTCO,SAMS CLUB)*",OUT,2,11,
+legacy 2nrs-mtv8,MTA - EXPO LINE - 7TH AND METRO CENTER,OUT,2,7,"transit: out, like Chicago"
+legacy 2nrs-mtv8,MTA - EXPO LINE - EXPO/VERMONT,OUT,2,16,"transit: out, like Chicago"
+legacy 2nrs-mtv8,MTA - EXPO LINE - EXPO/WESTERN,OUT,2,11,"transit: out, like Chicago"
+legacy 2nrs-mtv8,MTA - EXPO LINE - LATTC/ORTHO INSTITUTE,OUT,2,17,"transit: out, like Chicago"
+legacy 2nrs-mtv8,MTA - EXPO LINE - PALMS,OUT,2,8,"transit: out, like Chicago"
+legacy 2nrs-mtv8,MTA - GOLD LINE - HIGHLAND PARK,OUT,2,5,"transit: out, like Chicago"
+legacy 2nrs-mtv8,MTA - GOLD LINE - UNION STATION,OUT,2,10,"transit: out, like Chicago"
+legacy 2nrs-mtv8,MTA - GREEN LINE - AVIATION/LAX,OUT,2,6,"transit: out, like Chicago"
+legacy 2nrs-mtv8,MTA - ORANGE LINE - NORTH HOLLYWOOD,OUT,2,7,"transit: out, like Chicago"
+legacy 2nrs-mtv8,MTA - ORANGE LINE - RESEDA,OUT,2,4,"transit: out, like Chicago"
+legacy 2nrs-mtv8,MTA - ORANGE LINE - WOODMAN,OUT,2,5,"transit: out, like Chicago"
+legacy 2nrs-mtv8,MTA - SILVER LINE - HARBOR GATEWAY TRANSIT CTR,OUT,2,9,"transit: out, like Chicago"
+legacy 2nrs-mtv8,MTA - SILVER LINE - SLAUSON,OUT,2,3,"transit: out, like Chicago"
+legacy 2nrs-mtv8,PUBLIC RESTROOM(INDOORS-INSIDE),OUT,2,9,
+legacy 2nrs-mtv8,PUBLIC STORAGE,OUT,2,18,
+legacy 2nrs-mtv8,SPECIALTY SCHOOL/OTHER,OUT,2,63,
+legacy 2nrs-mtv8,THE BEVERLY CENTER,OUT,2,12,
+legacy 2nrs-mtv8,THE BEVERLY CONNECTION,OUT,2,11,
+legacy 2nrs-mtv8,TOW YARD*,OUT,2,12,
+legacy 2nrs-mtv8,"TRAIN DEPOT/TERMINAL, OTHER THAN MTA",OUT,2,8,"transit: out, like Chicago"
+legacy 2nrs-mtv8,"VEHICLE STORAGE LOT (CARS, TRUCKS, RV'S, BOATS, TRAILERS, ETC.)",OUT,2,12,
+NIBRS k7nn-b2ep,Auto Dealership New / Used,OUT,2,17,
+NIBRS k7nn-b2ep,Auto Salvages / Junk Yard,OUT,2,3,
+NIBRS k7nn-b2ep,Bank Drop Box/Money Drop (outside bank),OUT,2,4,like an ATM
+NIBRS k7nn-b2ep,Doctor's Office,OUT,2,13,
+NIBRS k7nn-b2ep,Drive Thru (other),OUT,2,5,
+NIBRS k7nn-b2ep,Financial Institutuion,OUT,2,4,
+NIBRS k7nn-b2ep,Fire Station,OUT,2,2,"transit: out, like Chicago"
+NIBRS k7nn-b2ep,Gambling Facility / Casino / Race Track,OUT,2,3,
+NIBRS k7nn-b2ep,Hockey Rink/Ice Hockey,OUT,2,2,
+NIBRS k7nn-b2ep,MTA C Green Line - Harbor Fwy,OUT,2,7,"transit: out, like Chicago"
+NIBRS k7nn-b2ep,MTA D Purple Line -Pershing square,OUT,2,8,"transit: out, like Chicago"
+NIBRS k7nn-b2ep,MTA D Purple Line -Wilshire/Western,OUT,2,12,"transit: out, like Chicago"
+NIBRS k7nn-b2ep,MTA E Expo Line - Expo/La Brea,OUT,2,10,"transit: out, like Chicago"
+NIBRS k7nn-b2ep,MTA E Expo Line - Expo Park/USC,OUT,2,11,"transit: out, like Chicago"
+NIBRS k7nn-b2ep,MTA E Expo Line - Farmdale,OUT,2,4,"transit: out, like Chicago"
+NIBRS k7nn-b2ep,MTA G Orange Line -Chatsworth,OUT,2,5,"transit: out, like Chicago"
+NIBRS k7nn-b2ep,MTA G Orange Line - Sherman Way,OUT,2,7,"transit: out, like Chicago"
+NIBRS k7nn-b2ep,MTA J Silver Line -37th St/USC,OUT,2,5,"transit: out, like Chicago"
+NIBRS k7nn-b2ep,MTA J Silver Line -Slauson,OUT,2,6,"transit: out, like Chicago"
+NIBRS k7nn-b2ep,MTA K Crenshaw Line - Aviation/Century Station,OUT,2,8,"transit: out, like Chicago"
+NIBRS k7nn-b2ep,MTA K Crenshaw Line - Crenshaw/Exposition,OUT,2,6,"transit: out, like Chicago"
+NIBRS k7nn-b2ep,MTA K Crenshaw Line - Leimert Park,OUT,2,6,"transit: out, like Chicago"
+NIBRS k7nn-b2ep,MTA L Gold Line - Chinatown,OUT,2,8,"transit: out, like Chicago"
+NIBRS k7nn-b2ep,"Other Railroad (Santa Fe, etc.)",OUT,2,4,
+NIBRS k7nn-b2ep,Public Health Facility,OUT,2,11,
+NIBRS k7nn-b2ep,Sewage Facility/Pipe,OUT,2,3,
+NIBRS k7nn-b2ep,Sporting Goods Store,OUT,2,26,
+NIBRS k7nn-b2ep,"Train, other than MTA",OUT,2,6,"transit: out, like Chicago"
+legacy 2nrs-mtv8,AMTRAK TRAIN,OUT,1,2,"transit: out, like Chicago"
+legacy 2nrs-mtv8,"ARCADE,GAME ROOM/VIDEO GAMES (EXAMPLE CHUCKIE CHEESE)*",OUT,1,2,
+legacy 2nrs-mtv8,CHECK CASHING*,OUT,1,10,
+legacy 2nrs-mtv8,CLEANER/LAUNDROMAT,OUT,1,5,
+legacy 2nrs-mtv8,FURNITURE STORE,OUT,1,5,
+legacy 2nrs-mtv8,GUN/SPORTING GOODS,OUT,1,11,
+legacy 2nrs-mtv8,HARBOR FRWY STATION (NOT LINE SPECIFIC),OUT,1,1,"transit: out, like Chicago"
+legacy 2nrs-mtv8,HARDWARE/BUILDING SUPPLY,OUT,1,11,
+legacy 2nrs-mtv8,MTA - BLUE LINE - SAN PEDRO,OUT,1,13,"transit: out, like Chicago"
+legacy 2nrs-mtv8,MTA - EXPO LINE - EXPO/BUNDY,OUT,1,5,"transit: out, like Chicago"
+legacy 2nrs-mtv8,MTA - EXPO LINE - EXPO PARK/USC,OUT,1,7,"transit: out, like Chicago"
+legacy 2nrs-mtv8,MTA - EXPO LINE - PICO,OUT,1,11,"transit: out, like Chicago"
+legacy 2nrs-mtv8,MTA - EXPO LINE - WESTWOOD/RANCHO PARK,OUT,1,4,"transit: out, like Chicago"
+legacy 2nrs-mtv8,MTA - GOLD LINE - CHINATOWN,OUT,1,8,"transit: out, like Chicago"
+legacy 2nrs-mtv8,MTA - GOLD LINE - HERITAGE SQ,OUT,1,2,"transit: out, like Chicago"
+legacy 2nrs-mtv8,MTA - GOLD LINE - LINCOLN/CYPRESS,OUT,1,5,"transit: out, like Chicago"
+legacy 2nrs-mtv8,MTA - GOLD LINE - LITTLE TOKYO/ARTS DISTRICT,OUT,1,7,"transit: out, like Chicago"
+legacy 2nrs-mtv8,MTA - GOLD LINE - MARIACHI PLAZA,OUT,1,6,"transit: out, like Chicago"
+legacy 2nrs-mtv8,MTA - GOLD LINE - PICO/ALISO,OUT,1,5,"transit: out, like Chicago"
+legacy 2nrs-mtv8,MTA - GOLD LINE - SOTO,OUT,1,4,"transit: out, like Chicago"
+legacy 2nrs-mtv8,MTA - GOLD LINE - SOUTHWEST MUSEUM,OUT,1,4,"transit: out, like Chicago"
+legacy 2nrs-mtv8,MTA - GREEN LINE - AVALON,OUT,1,9,"transit: out, like Chicago"
+legacy 2nrs-mtv8,MTA - ORANGE LINE - BALBOA,OUT,1,2,"transit: out, like Chicago"
+legacy 2nrs-mtv8,MTA - ORANGE LINE - ROSCOE,OUT,1,1,"transit: out, like Chicago"
+legacy 2nrs-mtv8,MTA - ORANGE LINE - VAN NUYS,OUT,1,6,"transit: out, like Chicago"
+legacy 2nrs-mtv8,MTA - PURPLE LINE - WILSHIRE/NORMANDIE,OUT,1,11,"transit: out, like Chicago"
+legacy 2nrs-mtv8,MTA - PURPLE LINE - WILSHIRE/VERMONT,OUT,1,9,"transit: out, like Chicago"
+legacy 2nrs-mtv8,MTA - PURPLE LINE - WILSHIRE/WESTERN,OUT,1,21,"transit: out, like Chicago"
+legacy 2nrs-mtv8,MTA - RED LINE - VERMONT/SANTA MONICA,OUT,1,22,"transit: out, like Chicago"
+legacy 2nrs-mtv8,MTA - SILVER LINE - HARBOR FWY,OUT,1,4,"transit: out, like Chicago"
+legacy 2nrs-mtv8,NURSERY/FLOWER SHOP,OUT,1,8,
+legacy 2nrs-mtv8,"OTHER INTERSTATE, CHARTER BUS",OUT,1,2,"transit: out, like Chicago"
+legacy 2nrs-mtv8,OTHER PLACE OF WORSHIP,OUT,1,2,
+legacy 2nrs-mtv8,POST OFFICE,OUT,1,15,
+legacy 2nrs-mtv8,RECYCLING CENTER,OUT,1,16,
+legacy 2nrs-mtv8,STORAGE SHED,OUT,1,4,
+legacy 2nrs-mtv8,SWAP MEET,OUT,1,15,
+legacy 2nrs-mtv8,TRADE SCHOOL (MEDICAL-TECHNICAL-BUSINESS)*,OUT,1,4,"transit: out, like Chicago"
+NIBRS k7nn-b2ep,"Arcade, Game Room (Ex. Chuckie cheese)",OUT,1,2,
+NIBRS k7nn-b2ep,"Cannabis- non-retail location (grow/testing/lab/delivery, etc.)",OUT,1,3,
+NIBRS k7nn-b2ep,Cannabis - retail location,OUT,1,4,
+NIBRS k7nn-b2ep,Children Daycare Facility,OUT,1,9,
+NIBRS k7nn-b2ep,Daycare Facility,OUT,1,7,
+NIBRS k7nn-b2ep,"DIY Center (Lowe's, Home Depot, etc.)",OUT,1,7,
+NIBRS k7nn-b2ep,Dock / Wharf / Freight / Modal Terminal,OUT,1,4,"port freight terminal, not public"
+NIBRS k7nn-b2ep,Equipment Rental,OUT,1,1,
+NIBRS k7nn-b2ep,Factory,OUT,1,2,
+NIBRS k7nn-b2ep,"Foster Home/Boys, Girls",OUT,1,8,
+NIBRS k7nn-b2ep,Frat/Sorority/Dormitory,OUT,1,2,
+NIBRS k7nn-b2ep,"Government Facility (Federal, State, County and City)",OUT,1,34,
+NIBRS k7nn-b2ep,Harbor Frwy Station (not line specific),OUT,1,1,"transit: out, like Chicago"
+NIBRS k7nn-b2ep,Highway Patrol,OUT,1,1,
+NIBRS k7nn-b2ep,Jewelry Store,OUT,1,18,
+NIBRS k7nn-b2ep,Marijuana Grow Site (Non-Residential),OUT,1,2,
+NIBRS k7nn-b2ep,Medical Office/Dental Office,OUT,1,17,
+NIBRS k7nn-b2ep,MTA A Blue Line -103rd/Watts Tower,OUT,1,10,"transit: out, like Chicago"
+NIBRS k7nn-b2ep,MTA B Red Line -Vermont/Santa Monica,OUT,1,10,"transit: out, like Chicago"
+NIBRS k7nn-b2ep,MTA C Green Line - Aviation/LAX,OUT,1,11,"transit: out, like Chicago"
+NIBRS k7nn-b2ep,MTA D Purple Line -Civic Center/Grand Park,OUT,1,1,"transit: out, like Chicago"
+NIBRS k7nn-b2ep,MTA D Purple Line -Westlake/Macarthur Park,OUT,1,10,"transit: out, like Chicago"
+NIBRS k7nn-b2ep,MTA D Purple Line -Wilshire/Vermont,OUT,1,4,"transit: out, like Chicago"
+NIBRS k7nn-b2ep,MTA E Expo Line - Palms,OUT,1,4,"transit: out, like Chicago"
+NIBRS k7nn-b2ep,MTA E Expo Line - Pico,OUT,1,10,"transit: out, like Chicago"
+NIBRS k7nn-b2ep,MTA E Expo Line - Westwood/Rancho Park,OUT,1,5,"transit: out, like Chicago"
+NIBRS k7nn-b2ep,MTA G Orange Line - Canoga,OUT,1,8,"transit: out, like Chicago"
+NIBRS k7nn-b2ep,MTA G Orange Line -Laurel Canyon,OUT,1,5,"transit: out, like Chicago"
+NIBRS k7nn-b2ep,MTA G Orange Line - Van Nuys,OUT,1,7,"transit: out, like Chicago"
+NIBRS k7nn-b2ep,MTA J Silver Line -Cal State LA,OUT,1,2,"transit: out, like Chicago"
+NIBRS k7nn-b2ep,MTA J Silver Line -Union Station,OUT,1,3,"transit: out, like Chicago"
+NIBRS k7nn-b2ep,MTA K Crenshaw Line - Crenshaw/Martin Luther King,OUT,1,5,"transit: out, like Chicago"
+NIBRS k7nn-b2ep,MTA K Crenshaw Line - Hyde Park,OUT,1,2,"transit: out, like Chicago"
+NIBRS k7nn-b2ep,MTA L Gold Line - Heritage Sq.,OUT,1,3,"transit: out, like Chicago"
+NIBRS k7nn-b2ep,MTA L Gold Line - Highland Park,OUT,1,9,"transit: out, like Chicago"
+NIBRS k7nn-b2ep,MTA L Gold Line - Lincoln/Cypress,OUT,1,5,"transit: out, like Chicago"
+NIBRS k7nn-b2ep,MTA L Gold Line - Pico/Aliso,OUT,1,3,"transit: out, like Chicago"
+NIBRS k7nn-b2ep,MTA L Gold Line - Southwest Museum,OUT,1,4,"transit: out, like Chicago"
+NIBRS k7nn-b2ep,MTA L Gold Line - Union Station,OUT,1,13,"transit: out, like Chicago"
+NIBRS k7nn-b2ep,Museum,OUT,1,7,
+NIBRS k7nn-b2ep,Nail Salon,OUT,1,11,
+NIBRS k7nn-b2ep,Recycling Center,OUT,1,13,
+NIBRS k7nn-b2ep,Storage Shed (Residential),OUT,1,5,
+NIBRS k7nn-b2ep,Swap Meet,OUT,1,11,
+NIBRS k7nn-b2ep,Synagogue/Temple,OUT,1,2,
+NIBRS k7nn-b2ep,The Grove,OUT,1,1,
+NIBRS k7nn-b2ep,Veterinary Office/Hospital,OUT,1,3,
+NIBRS k7nn-b2ep,Vision Care Facility,OUT,1,1,
+NIBRS k7nn-b2ep,Zoo,OUT,1,2,
+legacy 2nrs-mtv8,ABORTION CLINIC/ABORTION FACILITY*,OUT,0,2,
+legacy 2nrs-mtv8,BEAUTY SUPPLY STORE,OUT,0,26,
+legacy 2nrs-mtv8,"BUS, SCHOOL, CHURCH",OUT,0,10,"transit: out, like Chicago"
+legacy 2nrs-mtv8,CONVENTION CENTER,OUT,0,7,
+legacy 2nrs-mtv8,DAY CARE/CHILDREN*,OUT,0,10,
+legacy 2nrs-mtv8,"DELIVERY SERVICE (FED EX, UPS, COURIERS,COURIER SERVICE)*",OUT,0,5,
+legacy 2nrs-mtv8,DRIVE THRU BANKING (WINDOW)*,OUT,0,1,
+legacy 2nrs-mtv8,"ELECTRONICS STORE (IE:RADIO SHACK, ETC.)",OUT,0,7,
+legacy 2nrs-mtv8,ESCALATOR*,OUT,0,1,
+legacy 2nrs-mtv8,GREYHOUND OR INTERSTATE BUS,OUT,0,3,"a bus, not a terminal"
+legacy 2nrs-mtv8,HIGH-RISE BUILDING,OUT,0,1,
+legacy 2nrs-mtv8,HOSPICE,OUT,0,2,
+legacy 2nrs-mtv8,METHADONE CLINIC,OUT,0,1,
+legacy 2nrs-mtv8,MORTUARY,OUT,0,1,
+legacy 2nrs-mtv8,MTA - BLUE LINE - 7TH AND METRO CENTER,OUT,0,5,"transit: out, like Chicago"
+legacy 2nrs-mtv8,MTA - EXPO LINE - FARMDALE,OUT,0,10,"transit: out, like Chicago"
+legacy 2nrs-mtv8,MTA - EXPO LINE - JEFFERSON/USC,OUT,0,13,"transit: out, like Chicago"
+legacy 2nrs-mtv8,MTA - ORANGE LINE - SHERMAN WAY,OUT,0,2,"transit: out, like Chicago"
+legacy 2nrs-mtv8,MTA - ORANGE LINE - VALLEY COLLEGE,OUT,0,4,"transit: out, like Chicago"
+legacy 2nrs-mtv8,MTA - ORANGE LINE - WOODLEY,OUT,0,3,"transit: out, like Chicago"
+legacy 2nrs-mtv8,MTA - PURPLE LINE - 7TH AND METRO CENTER,OUT,0,2,"transit: out, like Chicago"
+legacy 2nrs-mtv8,MTA - PURPLE LINE - CIVIC CENTER/GRAND PARK,OUT,0,1,"transit: out, like Chicago"
+legacy 2nrs-mtv8,MTA - PURPLE LINE - WESTLAKE/MACARTHUR PARK,OUT,0,4,"transit: out, like Chicago"
+legacy 2nrs-mtv8,MTA - SILVER LINE - MANCHESTER,OUT,0,1,"transit: out, like Chicago"
+legacy 2nrs-mtv8,MTA - SILVER LINE - PACIFIC COAST HWY,OUT,0,1,"transit: out, like Chicago"
+legacy 2nrs-mtv8,MTA - SILVER LINE - ROSECRANS,OUT,0,1,"transit: out, like Chicago"
+legacy 2nrs-mtv8,MUSEUM,OUT,0,2,
+legacy 2nrs-mtv8,NAIL SALON,OUT,0,12,
+legacy 2nrs-mtv8,"OTHER RR TRAIN (UNION PAC, SANTE FE ETC",OUT,0,3,"transit: out, like Chicago"
+legacy 2nrs-mtv8,PET STORE,OUT,0,5,
+legacy 2nrs-mtv8,PRIVATE SCHOOL/PRESCHOOL,OUT,0,8,
+legacy 2nrs-mtv8,RETIRED (DUPLICATE) DO NOT USE THIS CODE,OUT,0,2,
+legacy 2nrs-mtv8,SAVINGS & LOAN,OUT,0,1,
+legacy 2nrs-mtv8,SYNAGOGUE/TEMPLE,OUT,0,2,
+legacy 2nrs-mtv8,TATTOO PARLOR*,OUT,0,3,
+legacy 2nrs-mtv8,"TERMINAL, OTHER THAN MTA",OUT,0,1,
+legacy 2nrs-mtv8,TV/RADIO/APPLIANCE,OUT,0,2,
+legacy 2nrs-mtv8,VETERINARIAN/ANIMAL HOSPITAL,OUT,0,4,
+legacy 2nrs-mtv8,VISION CARE FACILITY*,OUT,0,2,
+legacy 2nrs-mtv8,WEBSITE,OUT,0,1,
+NIBRS k7nn-b2ep,Abatement Location,OUT,0,1,
+NIBRS k7nn-b2ep,Abortion Clinic or Facility,OUT,0,1,
+NIBRS k7nn-b2ep,Amusement Park,OUT,0,1,
+NIBRS k7nn-b2ep,Banking inside supermarket (or other facility),OUT,0,1,
+NIBRS k7nn-b2ep,Beauty Supply Store,OUT,0,37,
+NIBRS k7nn-b2ep,Book Store,OUT,0,3,
+NIBRS k7nn-b2ep,Bus-School/Church,OUT,0,7,"transit: out, like Chicago"
+NIBRS k7nn-b2ep,Check Cashing,OUT,0,7,
+NIBRS k7nn-b2ep,Coliseum,OUT,0,2,
+NIBRS k7nn-b2ep,Computer Services/Repairs/Sales,OUT,0,4,
+NIBRS k7nn-b2ep,"Delivery Service/FedEx, UPS, Couriers",OUT,0,6,
+NIBRS k7nn-b2ep,"Electronics Store (Best Buy, etc.)",OUT,0,18,
+NIBRS k7nn-b2ep,Escalator,OUT,0,1,
+NIBRS k7nn-b2ep,Furniture Store,OUT,0,4,
+NIBRS k7nn-b2ep,Horse Racing/Santa Anita Park,OUT,0,2,
+NIBRS k7nn-b2ep,Locker Room,OUT,0,2,
+NIBRS k7nn-b2ep,"Membership Store (i.e.: Costco, Sams Club)",OUT,0,15,
+NIBRS k7nn-b2ep,Methadone Clinic,OUT,0,2,
+NIBRS k7nn-b2ep,Mortuary,OUT,0,3,
+NIBRS k7nn-b2ep,Mosque,OUT,0,1,
+NIBRS k7nn-b2ep,MTA B Red Line -Civic Center/Grand Park,OUT,0,2,"transit: out, like Chicago"
+NIBRS k7nn-b2ep,MTA D Purple Line -7th and Metro Center,OUT,0,2,"transit: out, like Chicago"
+NIBRS k7nn-b2ep,MTA D Purple Line -Union Station,OUT,0,1,"transit: out, like Chicago"
+NIBRS k7nn-b2ep,MTA D Purple Line -Wilshire/Normandie,OUT,0,4,"transit: out, like Chicago"
+NIBRS k7nn-b2ep,MTA E Expo Line - Expo/Crenshaw,OUT,0,19,"transit: out, like Chicago"
+NIBRS k7nn-b2ep,MTA G Orange Line -Sepulveda,OUT,0,4,"transit: out, like Chicago"
+NIBRS k7nn-b2ep,MTA J Silver Line -Downtown Street Stops,OUT,0,4,"transit: out, like Chicago"
+NIBRS k7nn-b2ep,MTA J Silver Line - Harbor Fwy,OUT,0,3,"transit: out, like Chicago"
+NIBRS k7nn-b2ep,MTA J Silver Line -LAC/USC Medical Center,OUT,0,2,"transit: out, like Chicago"
+NIBRS k7nn-b2ep,MTA J Silver Line -Manchester,OUT,0,4,"transit: out, like Chicago"
+NIBRS k7nn-b2ep,MTA J Silver Line -Pacific Coast Hwy,OUT,0,1,"transit: out, like Chicago"
+NIBRS k7nn-b2ep,MTA J Silver Line -San Pedro Street Stops,OUT,0,3,"transit: out, like Chicago"
+NIBRS k7nn-b2ep,MTA L Gold Line - Indiana,OUT,0,1,"transit: out, like Chicago"
+NIBRS k7nn-b2ep,"Other Interstate, Charter Bus",OUT,0,1,"transit: out, like Chicago"
+NIBRS k7nn-b2ep,Other place of worship,OUT,0,1,
+NIBRS k7nn-b2ep,Pawn / Buy-Sell-Trade Shops,OUT,0,1,
+NIBRS k7nn-b2ep,Pet Store,OUT,0,8,
+NIBRS k7nn-b2ep,Post Office,OUT,0,13,
+NIBRS k7nn-b2ep,Record-CD Music Store,OUT,0,2,
+NIBRS k7nn-b2ep,Specialty School/Other,OUT,0,27,
+NIBRS k7nn-b2ep,Storage Shed (Other),OUT,0,1,
+NIBRS k7nn-b2ep,The Beverly Center,OUT,0,2,
+NIBRS k7nn-b2ep,The Beverly Connection,OUT,0,1,
+NIBRS k7nn-b2ep,Tool Shed,OUT,0,1,
+NIBRS k7nn-b2ep,Trade School (medical/technical),OUT,0,4,
+NIBRS k7nn-b2ep,TV/Radio/Appliance,OUT,0,3,

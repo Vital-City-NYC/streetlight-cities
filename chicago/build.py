@@ -56,6 +56,7 @@ def socrata(path, params):
     offset, limit = 0, 50000
     while True:
         q = dict(params); q["$limit"] = limit; q["$offset"] = offset
+        q.setdefault("$order", ":id")           # stable paging
         batch = common.fetch_json(f"{RES}/{path}?" + urllib.parse.urlencode(q))
         if not batch:
             break

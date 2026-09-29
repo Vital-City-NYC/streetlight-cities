@@ -24,9 +24,33 @@ Live: https://vital-city-nyc.github.io/streetlight-cities/
 
 The repo moved from the `vitalcity-nyc` account to the `Vital-City-NYC` organization on Sept. 29, 2026 (https://github.com/Vital-City-NYC/streetlight-cities). The old address, vitalcity-nyc.github.io/streetlight-cities/, no longer works; GitHub does not redirect Pages sites. The organization's earlier code-only mirror was renamed `streetlight-cities-old-mirror` to make room and can be deleted.
 
+## Sept. 29, 2026: Los Angeles satellite map rebuilt the same way
+
+`los-angeles/satellite.html` now follows the same rules as Chicago's (below): 500-meter squares (UTM zone 11N), area-weighted lighting averaged over 2023-2025, crime from Jan. 1, 2023 through Dec. 31, 2025 at night in public outdoor places, and an outdoor allow-list in `los-angeles/location-codes.csv`.
+
+What's different from Chicago:
+
+- **Two crime files.** LAPD changed records systems on March 7, 2024. The old file (`2nrs-mtv8`) runs through early 2024; the new NIBRS file (`k7nn-b2ep`) starts in March 2024 and now has block-level coordinates, which it lacked in May. Their monthly totals join smoothly. The build counts each NIBRS case once and drops 51 that duplicate old-file records.
+- **Labels** are neighborhood councils, matched by point-in-polygon, since LAPD records carry only police divisions.
+- **311 stops July 4, 2025**, when the city's public 311 file ends.
+
+Headline numbers (garages on; garages off in brackets), from `python3 chicago/report_sat.py los-angeles`:
+
+- 5,470 squares; 2,604 [2,701] with no nighttime outdoor violent crime.
+- 26,665 [23,212] nighttime outdoor violent incidents on the map: 10,093 simple assault and battery, 10,069 aggravated assault, 6,183 robbery, 351 homicide (31 more fell just outside the city's squares).
+- 96 [95] squares flagged at the default sliders, holding 3.5% [3.6%] of the crime. The old hex map flagged 45 hexes holding 8.1%.
+- The top 20% of squares hold 83.3% [84.2%] of the crime, more concentrated than New York City (about 79%) or Chicago (about 65%).
+- Most flagged squares: Empowerment Congress Central (9), Reseda (7), United Neighborhoods and LA32 (6 each), Lake Balboa and Coastal San Pedro (5 each).
+
+Open questions for Los Angeles:
+
+- **Coastal squares.** Nine flagged squares are partly outside the city line, mostly along the beach in Venice, Playa del Rey and San Pedro; two are more than half ocean. The dark water pulls their lighting down, the same shoreline question as Chicago's lakefront.
+- **Splicing two record systems.** NIBRS counts are built differently from the old system's. The monthly totals line up, but a reader comparing 2023 with 2025 is comparing two systems.
+- **The 311 map** shares the crime data, so its crime layer also changed.
+
 ## Sept. 29, 2026: Chicago satellite map rebuilt to follow the cookbook
 
-`chicago/satellite.html` now follows Vital City's lighting-and-crime cookbook (the method behind the New York City satellite map) for its grid, time window and outdoor definition. The other four cities are unchanged.
+`chicago/satellite.html` now follows Vital City's lighting-and-crime cookbook (the method behind the New York City satellite map) for its grid, time window and outdoor definition. The other cities were unchanged at the time.
 
 What changed, and why:
 
@@ -71,7 +95,7 @@ Open questions:
 - **Miami is blocked.** Miami-Dade County publishes 311 streetlight requests (ArcGIS, split by year), but there is no public point-level crime feed for the City of Miami or the county. The police crime map is a LexisNexis vendor viewer with no download, and Florida crime data is mostly aggregated at the state level. At most Miami could get a 311-only outage map.
 - **Free NASA GIBS tiles do not work for this.** The first satellite build (`common_sat.py`, kept but unused) sampled the keyless GIBS nighttime tiles. Those are display-stretched images that saturate across dense cities: in Philadelphia 75 to 90 percent of crime hexes pinned at the palette maximum, leaving no usable within-city darkness variation. GIBS also only keeps about six months of nighttime tiles, so historical matching is impossible there anyway.
 - **The fix was calibrated radiance** (`common_sat_bm.py`): NASA Black Marble VNP46A4 annual composites, found via the Common Metadata Repository granule search and downloaded from the LAADS archive with a free Earthdata token. Real radiance runs about 2 to 275 nanowatts per square centimeter per steradian and gives clean terciles.
-- **Los Angeles 2024 crime is gutted.** LAPD's mid-2024 records-system change left about 17,000 violent incidents in the coordinate-bearing dataset versus roughly 58,000 in each of 2022 and 2023. The newer NIBRS feed has no coordinates at all. That is why Los Angeles uses calendar 2023 for both layers.
+- **Los Angeles 2024 crime is gutted.** LAPD's mid-2024 records-system change left about 17,000 violent incidents in the coordinate-bearing dataset versus roughly 58,000 in each of 2022 and 2023. The newer NIBRS feed has no coordinates at all. That is why Los Angeles uses calendar 2023 for both layers. (Superseded Sept. 29, 2026: the consolidated NIBRS file `k7nn-b2ep` now has coordinates, and the Los Angeles satellite map covers 2023-2025.)
 - **Baltimore's legacy crime file ends in 2019.** Use `Part1_Crime_Beta`, not `Part1_Crime`. Its object ID field is `ESRI_OID`, and asking ArcGIS to sort by `OBJECTID` fails silently and returns zero rows. Page with `resultOffset` instead.
 - **Los Angeles 311 is split by year** (2023, 2024 and 2025 are separate Socrata datasets) and those yearly sets do not show up in the federated Socrata catalog search. The IDs are hardcoded in `los-angeles/build.py`.
 - **Philadelphia's feeds have no neighborhood field.** `label_neighborhoods.py` assigns names by point-in-polygon against `philadelphia/neighborhoods.geojson`. Do not fetch the OpenDataPhilly neighborhoods download endpoint blind; one candidate URL turned out to be a 526 MB building-footprints file.
