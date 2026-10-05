@@ -24,6 +24,38 @@ Live: https://vital-city-nyc.github.io/streetlight-cities/
 
 The repo moved from the `vitalcity-nyc` account to the `Vital-City-NYC` organization on Sept. 29, 2026 (https://github.com/Vital-City-NYC/streetlight-cities). The old address, vitalcity-nyc.github.io/streetlight-cities/, no longer works; GitHub does not redirect Pages sites. The organization's earlier code-only mirror was renamed `streetlight-cities-old-mirror` to make room and can be deleted.
 
+## Oct. 5, 2026: Los Angeles ranks only the inhabited part of the city
+
+`los-angeles/satellite.html` now ranks only squares with at least 50 residents in the 2020 census and at least half their area inside the city line, and measures each square's lighting only over the part inside the city.
+
+Why: the map ranked all 5,470 squares touching the city, and about a quarter of them have almost nobody living in them (the Santa Monica Mountains and other hillsides, the shoreline, the harbor, squares mostly outside the city). They pulled the citywide median brightness down to about 44 and let a square reach the top 20% for crime with six incidents in three years, so the flagged squares scattered across the Valley and the hillsides. The New York City analysis clipped its grid to the shoreline and reported its headline as a share of land area.
+
+What changed in the code:
+
+- `common_grid.py`: `square_population` (census blocks to squares, by area share, clipped to the city) and `share_inside`.
+- `common_sat_bm.build_squares_lighting`: options to clip lighting to the boundary, rank only squares that meet a population and share-inside test, keep percentiles to two decimals, and compute without writing. All default to the old behavior; Chicago is unchanged.
+- `los-angeles/build_sat.py`: `MIN_RESIDENTS = 50`, `MIN_SHARE_INSIDE = 0.5`; downloads the county's 2020 census blocks once into `los-angeles/cache/` (not committed) and stops if the population is more than 1% off the census count.
+- Pages: `template-sat.html` and `all-cities-satellite.html` take an optional `gridNote` (an extra sentence in the method text) and `statPctLabel` (the label under the share; Los Angeles says "of ranked squares").
+
+A finding along the way: the maps round each square's percentile to a whole number, so a square at the 79.5th percentile counts as "80th and above." In Los Angeles that put 95 squares with eight incidents over the line and raised the flagged count from 49 to 69. Los Angeles now keeps two decimals. Chicago's live map still rounds (with two decimals it would flag 117 squares instead of 126).
+
+Headline numbers at the default sliders, from `python3 los-angeles/report_inhabited.py`:
+
+| | 0 residents | 50 residents (published) | 250 residents |
+|---|---|---|---|
+| Ranked squares | 4,958 | 4,024 | 3,264 |
+| Nighttime incidents left out | 325 (1.2%) | 674 (2.5%) | 1,557 (5.8%) |
+| Median radiance | 44.1 | 47.5 | 51.5 |
+| Incidents to reach the top 20% / 10% | 7 / 14 | 9 / 17 | 11 / 20 |
+| Flagged squares | 59 | 49 | 77 |
+| Area flagged | 5.7 sq mi | 4.7 sq mi | 7.4 sq mi |
+| Share of nighttime outdoor violent crime | 2.5% | 2.8% | 5.5% |
+| Flagged in South Los Angeles | 14 | 25 | 49 |
+
+(The 0-resident column still applies the half-inside rule. South Los Angeles here is the Los Angeles Times Mapping L.A. "South L.A." region, 28 neighborhoods; a square counts if its center falls in one.) At 50 residents the top 20% of ranked squares hold 77.1% of their crime. Empowerment Congress Central has the most flagged squares (10); Vermont Square has the most of any Mapping L.A. neighborhood (5). Five flagged squares are partly outside the city line: in Empowerment Congress Southwest (71% inside), Venice (81% and 90%), Northwest San Pedro (88%) and Historic Highland Park (94%).
+
+What the same rule would do to Chicago (`python3 chicago/whatif_inhabited.py`; the Chicago map is unchanged): 1,990 of 2,650 squares ranked (660 left out, holding 710 incidents), 120 flagged holding 13.9% of nighttime outdoor violent crime (published: 126 and 12.3%), and the top 20% of ranked squares holding 56.5% of their crime (published: 64.7%). Chicago's census blocks come from the Census Bureau's TIGERweb (2020 blocks, `POP100`) and add up to 2,745,259 against the census count of 2,746,388.
+
 ## Sept. 29, 2026: Los Angeles satellite map rebuilt the same way
 
 `los-angeles/satellite.html` now follows the same rules as Chicago's (below): 500-meter squares (UTM zone 11N), area-weighted lighting averaged over 2023-2025, crime from Jan. 1, 2023 through Dec. 31, 2025 at night in public outdoor places, and an outdoor allow-list in `los-angeles/location-codes.csv`.
@@ -44,7 +76,7 @@ Headline numbers (garages on; garages off in brackets), from `python3 chicago/re
 
 Open questions for Los Angeles:
 
-- **Coastal squares.** Nine flagged squares are partly outside the city line, mostly along the beach in Venice, Playa del Rey and San Pedro; two are more than half ocean. The dark water pulls their lighting down, the same shoreline question as Chicago's lakefront.
+- **Coastal squares.** Nine flagged squares are partly outside the city line, mostly along the beach in Venice, Playa del Rey and San Pedro; two are more than half ocean. The dark water pulls their lighting down, the same shoreline question as Chicago's lakefront. (Addressed Oct. 5, 2026; see above.)
 - **Splicing two record systems.** NIBRS counts are built differently from the old system's. The monthly totals line up, but a reader comparing 2023 with 2025 is comparing two systems.
 - **The 311 map** shares the crime data, so its crime layer also changed.
 

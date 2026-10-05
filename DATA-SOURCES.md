@@ -5,7 +5,7 @@ Plain-language documentation for the multi-city street-lighting and crime maps
 below is open data pulled from public sources. The comparison-city maps are
 drafts for review, not published work.
 
-Last built: May 2026. Chicago and Los Angeles rebuilt Sept. 29, 2026 (see their notes in sections 2, 4, 6 and 7).
+Last built: May 2026. Chicago and Los Angeles rebuilt Sept. 29, 2026 (see their notes in sections 2, 4, 6 and 7). Los Angeles narrowed to its inhabited squares Oct. 5, 2026 (section 4).
 
 ---
 
@@ -197,6 +197,33 @@ outdoor violent crime; area-weighted lighting averaged over 2023, 2024 and
 - **Labels.** Each crime is matched to a neighborhood council (EmpowerLA's
   2018 boundaries, 99 councils); each square takes the council holding most of
   its nighttime crimes, or the one its center falls in.
+
+**Update, Oct. 5, 2026: only the inhabited part of Los Angeles is ranked.**
+
+- **Which squares count.** A square is ranked only if it has at least 50
+  residents in the 2020 census and at least half its area inside the city
+  line. That leaves 4,024 of the 5,470 squares. Of the 1,446 left out, 934
+  have too few residents, 191 are mostly outside the city and 321 are both;
+  they are mostly the Santa Monica Mountains and other hillsides, the
+  shoreline and the harbor, and they hold 674 of the 26,665 nighttime
+  incidents (2.5%). Percentiles and the slider values are computed over the
+  ranked squares only, and only they appear on the map.
+- **Population per square.** 2020 census blocks (`POP20`) from Los Angeles
+  County's public GIS (Demographics MapServer, layer 16), clipped to the
+  city boundary. Each square gets each block's population times the share of
+  the block's area inside the square. The squares add up to 3,898,784
+  residents against the census count of 3,898,747.
+- **Lighting inside the city only.** Each satellite pixel counts only for the
+  area where the pixel, the square and the city all overlap, so ocean pixels
+  no longer darken beach squares. At the default sliders this changes no
+  flagged square.
+- **Percentiles to two decimals.** The other maps round each square's
+  percentile to a whole number, which put 95 squares at the 79.5th
+  percentile (eight incidents) into "80th and above." Los Angeles now keeps
+  two decimals, so the 80th percentile starts at nine incidents.
+- **Parameters** (`MIN_RESIDENTS`, `MIN_SHARE_INSIDE`) are at the top of
+  `los-angeles/build_sat.py`. `los-angeles/report_inhabited.py` prints the
+  headline numbers and the same numbers at other cutoffs.
 
 ### Why 2023 lighting elsewhere
 

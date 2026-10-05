@@ -204,16 +204,25 @@ def _tile_origin(path):
     return h * 10 - 180, 90 - v * 10
 
 
-def _pixel_weights(grid, keys, lon0, lat0, rows, cols):
+def _pixel_weights(grid, keys, lon0, lat0, rows, cols, clip=None):
     """For each square, [(row, col, overlap area in m2), ...] over the pixels it touches.
 
     Pixels are lon/lat boxes (pixel-is-area, tile upper-left corner at lon0, lat0);
-    each is projected to the grid's CRS and intersected with the square.
+    each is projected to the grid's CRS and intersected with the square. With
+    clip (a geometry in the grid's CRS, e.g. the city boundary), a pixel counts
+    only for the area where the pixel, the square and the clip all overlap.
     """
     from shapely.geometry import Polygon
+    from shapely.prepared import prep
+    pclip = prep(clip) if clip is not None else None
     out = []
     for key in keys:
         sq = grid.box_utm(key)
+        if pclip is not None and not pclip.contains(sq):
+            sq = sq.intersection(clip) if pclip.intersects(sq) else None
+            if sq is None or sq.is_empty:
+                out.append([])
+                continue
         ring = grid.ring_wgs84(key)
         lons = [p[0] for p in ring]; lats = [p[1] for p in ring]
         c0 = int(math.floor((min(lons) - lon0) * PIX_PER_DEG))
@@ -234,16 +243,34 @@ def _pixel_weights(grid, keys, lon0, lat0, rows, cols):
 
 
 def build_squares_lighting(city_dir, *, years, lighting_label, boundary, epsg,
-                           out_dir=None):
+                           out_dir=None, clip_lighting_to_boundary=False,
+                           population=None, population_source=None,
+                           min_residents=None, min_share_inside=None, exact_percentiles=False,
+                           write=True):
     """Add the lighting layer to squares.geojson and write hexes-sat.geojson.
 
     hexes-sat.geojson keeps its name so the page templates, the tabbed
     all-cities page and the atlas read it unchanged; for this city it holds squares.
+
+    Options, all off by default (the original behavior):
+      clip_lighting_to_boundary  measure each square's lighting only over the
+                                 part inside the boundary
+      population + min_residents + min_share_inside
+                                 rank only squares with at least min_residents
+                                 residents AND at least min_share_inside of their
+                                 area inside the boundary; percentiles and the
+                                 slider quantiles use those squares, and only
+                                 they are written to hexes-sat.geojson
+      exact_percentiles          store percentiles to two decimals instead of
+                                 whole numbers, so a square at the 79.5th
+                                 percentile doesn't round up into "80th and above"
+      write=False                compute and return (meta, features) without
+                                 writing (for comparisons)
     """
     import common_grid
     out_dir = out_dir or city_dir
     token = _token()
-    src = json.load(open(f"{out_dir}/squares.geojson"))
+    src = json.load(open(f"{city_dir if not write else out_dir}/squares.geojson"))
     feats = src["features"]
     grid = common_grid.SquareGrid(boundary, epsg=epsg, cell=src["meta"]["grid"]["cell_m"])
     keys = [tuple(int(v) for v in f["properties"]["sq"].split("_")) for f in feats]
@@ -256,7 +283,7 @@ def build_squares_lighting(city_dir, *, years, lighting_label, boundary, epsg,
     # square centroids in projected meters, for the nearest-neighbor fill
     cxy = np.array([((i + 0.5) * grid.cell, (j + 0.5) * grid.cell) for i, j in keys])
 
-    per_year, fill_report, weights, tile_used = {}, {}, None, None
+    per_year, fill_report, weights, tile_used, filled = {}, {}, None, None, {}
     for year in years:
         urls = _granule_urls(bbox, year)
         if len(urls) != 1:
@@ -269,7 +296,12 @@ def build_squares_lighting(city_dir, *, years, lighting_label, boundary, epsg,
         tile = os.path.basename(p).split(".")[2]
         if weights is None:
             rows, cols = arr.shape
-            weights = _pixel_weights(grid, keys, lon0, lat0, rows, cols)
+            clip = None
+            if clip_lighting_to_boundary:
+                from shapely.ops import transform as _tf
+                clip = _tf(grid.fwd.transform, boundary)
+            weights = _pixel_weights(grid, keys, lon0, lat0, rows, cols, clip=clip)
+            no_area = [k for k, w in enumerate(weights) if not w]
             tile_used = tile
         elif tile != tile_used:
             raise SystemExit(f"tile changed between years ({tile_used} vs {tile})")
@@ -292,55 +324,107 @@ def build_squares_lighting(city_dir, *, years, lighting_label, boundary, epsg,
             d = np.hypot(*(cxy[valid] - cxy[k]).T)
             vals[k] = vals[valid[np.argsort(d)[:3]]].mean()
         per_year[year] = vals
-        fill_report[str(year)] = {"filled_squares": int(len(missing)),
+        # squares that only touch the boundary have no area to measure when
+        # lighting is clipped; they are filled too, but are not missing data
+        no_data = [k for k in missing if k not in set(no_area)]
+        filled[year] = no_data
+        fill_report[str(year)] = {"filled_squares": int(len(no_data)),
+                                  "no_area_inside_boundary": len(no_area),
                                   "partly_fill_pixels": partial,
                                   "granule": os.path.basename(p)}
-        print(f"  {year}: {len(missing)} squares filled from neighbors, "
-              f"{partial} averaged over partly missing pixels", file=sys.stderr)
+        print(f"  {year}: {len(no_data)} squares filled from neighbors for missing radiance"
+              + (f" ({len(no_area)} more have no area inside the boundary)" if no_area else "")
+              + f", {partial} averaged over partly missing pixels", file=sys.stderr)
 
     light = np.mean([per_year[y] for y in years], axis=0)   # equal weight per year
 
     def night_count(p_):
         return p_.get("crime_night_n", 0)
-    rad_sorted = sorted(light.tolist())
-    crime_sorted = sorted(night_count(f["properties"]) for f in feats)
+
+    ranking = population is not None and (min_residents is not None or min_share_inside is not None)
+    inside = common_grid.share_inside(grid, boundary) if (ranking or clip_lighting_to_boundary) else None
+    if ranking:
+        few = np.asarray(population) < (min_residents or 0)
+        outside = inside < (min_share_inside or 0)
+        ranked = ~few & ~outside
+    else:
+        ranked = np.ones(len(feats), bool)
+    rad_sorted = sorted(light[ranked].tolist())
+    crime_sorted = sorted(night_count(f["properties"]) for f, r in zip(feats, ranked) if r)
 
     def pctl(sorted_vals, v):
-        return max(0, min(100, round(100 * bisect.bisect_right(sorted_vals, v) / len(sorted_vals))))
+        x = 100 * bisect.bisect_right(sorted_vals, v) / len(sorted_vals)
+        return max(0, min(100, round(x, 2) if exact_percentiles else round(x)))
 
     def quantiles(sorted_vals):
         n = len(sorted_vals)
         return [round(sorted_vals[min(n - 1, int(round(p / 100 * (n - 1))))], 1) for p in range(101)]
 
     out = []
-    for f, v in zip(feats, light):
+    for k, (f, v) in enumerate(zip(feats, light)):
+        if not ranked[k]:
+            continue
         p = f["properties"]
         nc = night_count(p)
-        out.append({"type": "Feature", "geometry": f["geometry"], "properties": {
+        props = {
             "light_n": round(float(v), 1),
             "light_pctl": pctl(rad_sorted, float(v)),
             "crime_n": nc,                              # night-only violent crime count
             "crime_pctl": pctl(crime_sorted, nc),
-            "nta": p.get("nta"), "boro": p.get("boro")}})
+            "nta": p.get("nta"), "boro": p.get("boro")}
+        if ranking:
+            props["residents"] = int(round(float(population[k])))
+            props["share_inside"] = round(float(inside[k]), 3)
+        out.append({"type": "Feature", "geometry": f["geometry"], "properties": props})
 
     meta = dict(src["meta"])
     meta["generated"] = datetime.date.today().isoformat()
     meta["n_cells"] = len(out)
     meta["crime"]["time_of_day"] = "night only (8 PM - 6 AM)"
-    meta["percentile_method"] = ("Each 500 m square gets a lighting percentile (satellite radiance, 0 = darkest) "
-                                 "and a NIGHTTIME violent-crime percentile (8 PM-6 AM, 0 = lowest), both "
-                                 "ranked over every square in the city including squares with no crime; the "
-                                 "sliders flag squares at or below a lighting percentile AND at or above a "
-                                 "crime percentile")
+    meta["percentiles"] = "two decimals (exact)" if exact_percentiles else "whole numbers (rounded)"
+    if ranking:
+        night_all = np.array([night_count(f["properties"]) for f in feats])
+        meta["ranking"] = {
+            "min_residents": min_residents, "min_share_inside": min_share_inside,
+            "population_source": population_source,
+            "population_total": round(float(np.sum(population))),
+            "squares_total": len(feats), "squares_ranked": int(ranked.sum()),
+            "left_out": {"too_few_residents_only": int((few & ~outside).sum()),
+                         "mostly_outside_boundary_only": int((~few & outside).sum()),
+                         "both": int((few & outside).sum())},
+            "night_incidents_ranked": int(night_all[ranked].sum()),
+            "night_incidents_left_out": int(night_all[~ranked].sum()),
+        }
+        meta["percentile_method"] = (
+            f"Only squares with at least {min_residents} residents (2020 census) and at least "
+            f"{round(100 * min_share_inside)}% of their area inside the city boundary are ranked "
+            f"({int(ranked.sum())} of {len(feats)}). Each gets a lighting percentile (satellite radiance, "
+            "0 = darkest) and a NIGHTTIME violent-crime percentile (8 PM-6 AM, 0 = lowest), both ranked over "
+            "those squares, including ones with no crime; the sliders flag squares at or below a lighting "
+            "percentile AND at or above a crime percentile")
+    else:
+        meta["percentile_method"] = ("Each 500 m square gets a lighting percentile (satellite radiance, 0 = darkest) "
+                                     "and a NIGHTTIME violent-crime percentile (8 PM-6 AM, 0 = lowest), both "
+                                     "ranked over every square in the city including squares with no crime; the "
+                                     "sliders flag squares at or below a lighting percentile AND at or above a "
+                                     "crime percentile")
     meta["lightingQ"] = quantiles(rad_sorted)
     meta["crimeQ"] = quantiles(crime_sorted)
     meta["lighting"] = {"label": lighting_label, "years": list(years), "tile": tile_used,
                         "source": "NASA Black Marble VNP46A4 annual radiance (LAADS DAAC)",
                         "field": SUBDATASET, "units": "nW/cm2/sr",
-                        "method": "area-weighted mean of the 15-arc-second pixels overlapping each square, "
-                                  "per year; squares with no valid pixels in a year take the mean of the "
+                        "method": "area-weighted mean of the 15-arc-second pixels overlapping each square"
+                                  + (" (counting only the part of the square inside the city boundary)"
+                                     if clip_lighting_to_boundary else "")
+                                  + ", per year; squares with no valid pixels in a year take the mean of the "
                                   "3 nearest valid squares; years averaged with equal weight",
+                        "clipped_to_boundary": bool(clip_lighting_to_boundary),
                         "fill": fill_report}
+    if ranking:
+        meta["lighting"]["filled_ranked_squares"] = {
+            str(y): sum(1 for k in filled[y] if ranked[k]) for y in years}
+    if not write:
+        return meta, out
     json.dump({"type": "FeatureCollection", "meta": meta, "features": out},
               open(f"{out_dir}/hexes-sat.geojson", "w"))
     print(f"  wrote hexes-sat.geojson — {len(out)} squares; radiance min/med/max = "

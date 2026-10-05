@@ -157,3 +157,54 @@ def build_squares(crimes, *, city, boundary, areas, epsg, out_dir, cell=CELL_M, 
     print(f"  wrote squares.geojson — {n} squares, {int((night_n == 0).sum())} with no night crime",
           file=sys.stderr)
     return meta
+
+
+def share_inside(grid, boundary_wgs84):
+    """Share of each square's area that lies inside the boundary (grid.keys order)."""
+    city = transform(grid.fwd.transform, boundary_wgs84)
+    pc = prep(city)
+    full = grid.cell ** 2
+    out = np.zeros(len(grid.keys))
+    for k, key in enumerate(grid.keys):
+        sq = grid.box_utm(key)
+        if pc.contains(sq):
+            out[k] = 1.0
+        elif pc.intersects(sq):
+            out[k] = sq.intersection(city).area / full
+    return out
+
+
+def square_population(grid, blocks, boundary_wgs84):
+    """Residents per square (grid.keys order) from census blocks.
+
+    blocks: iterable of (population, shapely geometry in WGS84). Each block is
+    clipped to the boundary, and each square gets the block's population times
+    the share of the whole block's area that falls inside that square (so a
+    block straddling the city line contributes only its inside share), all in
+    the grid's projected coordinates. Returns (array, total assigned).
+    """
+    city = transform(grid.fwd.transform, boundary_wgs84)
+    pc = prep(city)
+    c = grid.cell
+    pops = np.zeros(len(grid.keys))
+    for pop, g in blocks:
+        if not pop:
+            continue
+        gu = transform(grid.fwd.transform, g)
+        if not pc.intersects(gu):
+            continue
+        area = gu.area                      # whole block, before clipping
+        if area <= 0:
+            continue
+        if not pc.contains(gu):
+            gu = gu.intersection(city)
+        x0, y0, x1, y1 = gu.bounds
+        for i in range(math.floor(x0 / c), math.floor(x1 / c) + 1):
+            for j in range(math.floor(y0 / c), math.floor(y1 / c) + 1):
+                k = grid.index.get((i, j))
+                if k is None:
+                    continue
+                part = gu.intersection(grid.box_utm((i, j))).area
+                if part > 0:
+                    pops[k] += pop * part / area
+    return pops, float(pops.sum())
