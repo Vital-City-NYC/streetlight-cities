@@ -95,6 +95,10 @@
     <input type="checkbox" id="showchronic">
     <span>Show top 20 chronic complaint spots</span>
   </label>
+  <label class="night-toggle" title="The legal line of the City of Los Angeles. Beverly Hills, Santa Monica, West Hollywood, Culver City and the other separate cities inside or beside it are not part of the city and are not policed by the LAPD, so this map has no data for them.">
+    <input type="checkbox" id="cityLineToggle" checked>
+    <span>Show the City of Los Angeles boundary <span class="muted">(Beverly Hills, Santa Monica and other separate cities sit outside it)</span></span>
+  </label>
 
   <div class="search">
     <input id="addr" type="text" placeholder="Address or landmark&hellip;" autocomplete="off">
@@ -307,6 +311,18 @@ function buildChronicLayer() {
   return layer;
 }
 fetch("chronic.json").then(r=>r.json()).then(j => { CHRONIC = j; });
+// City of Los Angeles boundary (toggle)
+map.createPane("cityline"); map.getPane("cityline").style.zIndex = 440; map.getPane("cityline").style.pointerEvents = "none";
+let cityLine = null;
+fetch("city-boundary.geojson").then(r => r.json()).then(j => {
+  cityLine = L.geoJSON(j, { pane:"cityline", renderer:L.svg({ pane:"cityline" }), interactive:false,
+    style:{ color:"#ffffff", weight:1.8, opacity:0.9, dashArray:"6 4", fill:false } });
+  if (document.getElementById("cityLineToggle").checked) cityLine.addTo(map);
+});
+document.getElementById("cityLineToggle").addEventListener("change", e => {
+  if (!cityLine) return; if (e.target.checked) cityLine.addTo(map); else map.removeLayer(cityLine);
+});
+
 document.getElementById("showchronic").addEventListener("change", e => {
   if (e.target.checked) { if (!chronicLayer) chronicLayer = buildChronicLayer(); if (chronicLayer) chronicLayer.addTo(map); }
   else if (chronicLayer) map.removeLayer(chronicLayer);

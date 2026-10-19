@@ -78,6 +78,7 @@
   .cp-311-toggle{display:flex;align-items:flex-start;gap:9px;padding:0 20px 14px;cursor:pointer;}
   .cp-311-toggle input{margin-top:2px;accent-color:var(--vc-magenta);}
   .cp-311-swatch{width:12px;height:12px;border-radius:50%;background:#ffb020;box-shadow:0 0 6px rgba(255,176,32,.9);margin-top:2px;flex-shrink:0;}
+  .cp-line-swatch{width:14px;height:0;border-top:2px dashed #fff;margin-top:8px;flex-shrink:0;}
   .cp-311-text b{font-size:11.5px;color:var(--text-primary);} .cp-311-hint{display:block;font-size:10px;color:var(--text-dim);margin-top:1px;}
 
   .cp-about{margin:0 20px 16px;display:flex;gap:8px;}
@@ -192,6 +193,11 @@
       <input type="checkbox" id="chronicToggle" checked>
       <span class="cp-311-swatch"></span>
       <span class="cp-311-text"><b>View chronic 311 streetlight complaint hotspots</b><span class="cp-311-hint" id="chronicHint">Top reported spots</span></span>
+    </label>
+    <label class="cp-311-toggle" id="cityLineWrap" title="The legal line of the City of Los Angeles. Beverly Hills, Santa Monica, West Hollywood, Culver City and the other separate cities inside or beside it are not part of the city and are not policed by the LAPD, so this map has no data for them.">
+      <input type="checkbox" id="cityLineToggle" checked>
+      <span class="cp-line-swatch"></span>
+      <span class="cp-311-text"><b>Show the City of Los Angeles boundary</b><span class="cp-311-hint">Beverly Hills, Santa Monica and other separate cities sit outside it</span></span>
     </label>
     <div class="cp-about">
       <button class="about-1" id="aboutBtn2">About this map</button>
@@ -409,6 +415,16 @@ function showChronic(){ if(!CHRONIC)return; chronicLayer=L.layerGroup();
   chronicLayer.addTo(map);
 }
 $('chronicToggle').addEventListener('change',e=>{ if(e.target.checked){if(!chronicLayer)showChronic();else chronicLayer.addTo(map);} else if(chronicLayer)map.removeLayer(chronicLayer); });
+
+/* ---- City of Los Angeles boundary (toggle) ---- */
+map.createPane('cityline'); map.getPane('cityline').style.zIndex=440; map.getPane('cityline').style.pointerEvents='none';
+let cityLine=null;
+fetch('city-boundary.geojson').then(r=>r.json()).then(j=>{
+  cityLine=L.geoJSON(j,{pane:'cityline',renderer:L.svg({pane:'cityline'}),interactive:false,
+    style:{color:'#ffffff',weight:1.8,opacity:0.9,dashArray:'6 4',fill:false}});
+  if($('cityLineToggle').checked) cityLine.addTo(map);
+});
+$('cityLineToggle').addEventListener('change',e=>{ if(!cityLine)return; if(e.target.checked) cityLine.addTo(map); else map.removeLayer(cityLine); });
 
 function fmtMonth(s){ if(!s)return''; const [y,m]=s.split('-').map(Number); return new Date(y,m-1,1).toLocaleDateString('en-US',{month:'short',year:'numeric'}); }
 function fillInfo(cw){

@@ -11,7 +11,7 @@ Run build.py first (it writes squares.geojson)."""
 import sys, os, json, urllib.parse
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import common, common_sat_bm, common_grid
-from shapely.geometry import shape
+from shapely.geometry import mapping, shape
 from shapely.ops import unary_union
 
 MIN_RESIDENTS = 50          # 2020 census residents in the square
@@ -65,8 +65,21 @@ def population(boundary, epsg=UTM11N):
     return pops
 
 
+def write_boundary(boundary, path=None):
+    """The city line, simplified to about 10 m, for the map's outline toggle."""
+    g = boundary.simplify(0.0001, preserve_topology=True)
+    def r(c):
+        return [round(c[0], 5), round(c[1], 5)] if isinstance(c[0], (int, float)) else [r(x) for x in c]
+    geom = mapping(g)
+    geom = {"type": geom["type"], "coordinates": r(geom["coordinates"])}
+    fc = {"type": "FeatureCollection", "features": [{"type": "Feature", "geometry": geom,
+          "properties": {"name": "City of Los Angeles", "source": CITY_BOUNDARY}}]}
+    json.dump(fc, open(path or os.path.join(OUT, "city-boundary.geojson"), "w"), separators=(",", ":"))
+
+
 if __name__ == "__main__":
     boundary = unary_union([shape(f["geometry"]) for f in common_grid.load_geojson(CITY_BOUNDARY)["features"]])
+    write_boundary(boundary)
     pops = population(boundary)
     common_sat_bm.build_squares_lighting(
         HERE, years=(2023, 2024, 2025), boundary=boundary, epsg=UTM11N,
